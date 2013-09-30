@@ -20,6 +20,24 @@
       </div>
     </div>
   </script>
+
+<script id="signup-template" type="text/x-handlebars-template">
+<div class="signupform">
+       <form id="profileform">
+          Username: <input type="text" name="name"><br>
+          Email:    <input type="email" name="email"><br>
+          Password: <input type="password" name="password"><br>
+          My Age: <br><input type="radio" name="age" value="18_24">18-24 <input type="radio" name="age" value="25_30">25-30<br><input type="radio" name="age" value="31_36">31-36<input type="radio" name="age" value="37_42">37-42<br><input type="radio" name="age" value="43_50">43-50<input typ e="radio" name="age" value="50+">50+<br>
+          Gender: <br><input type="radio" name="sex" value="male">Male<br><input type="radio" name="sex" value="female">Female<br>Interested In:  <br><input type="checkbox" name="sex_preference" value="men">Men<br><input type="checkbox" name="sex_preference" value="women">Women<br>
+          Tagline: <input type="text"name="tagline">
+          <br>
+          <input type="submit" id="submit">
+        </form>
+      </div>
+    </div>
+
+</script>
+
 </head>
 <body>
   <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -28,5 +46,7 @@
   <script src="js/greenlight.js"></script>
   <script src="js/lib/handlebars.js"></script>
 
+<h1> Welcome to Greenlight! </h1>
+<button id="signup">Sign-up!</button>
 </body>
 </html>
