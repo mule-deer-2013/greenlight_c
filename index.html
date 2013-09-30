@@ -1,20 +1,32 @@
 <html>
 <head>
-  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-  <script src="js/greenlight.js"></script>
-  <script src="js/lib/handlebars.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link rel="stylesheet" type="text/css" href="css/greenlight.css" /> 
+
+
   <title>Green Light</title>
   <script id="entry-template" type="text/x-handlebars-template">
     <div class="entry">
-      <h1>Something</h1>
+      <h1>Welcome {{name}}!</h1>
       <div class="body">
-        {{body}}
+      <ul>
+        <li>Your name: {{name}}</li>
+        <li>Your age: {{age}}</li>
+        <li>Your gender: {{sex}}</li>
+        <li>Interested in: {{sex_preference}}</li>
+        <li>Your profile picture: {{photo}}</li>
+      </ul>
       </div>
     </div>
   </script>
 </head>
 <body>
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+  <script src="js/greenlight.js"></script>
+  <script src="js/lib/handlebars.js"></script>
 
 </body>
 </html>
