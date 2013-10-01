@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="css/greenlight.css" /> 
+  <link rel="stylesheet" type="text/css" href="css/greenlight.css" />
 
 
   <title>Green Light</title>
@@ -30,7 +30,7 @@
         Username: <input type="text" name="name"><br>
         Email:    <input type="email" name="email"><br>
         Password: <input type="password" name="password"><br>
-        My Age: <br><input type="radio" name="age" value="18_24">18-24 
+        My Age: <br><input type="radio" name="age" value="18_24">18-24
                 <input type="radio" name="age" value="25_30">25-30<br>
                 <input type="radio" name="age" value="31_36">31-36
                 <input type="radio" name="age" value="37_42">37-42<br>
@@ -42,7 +42,17 @@
                 <input type="checkbox" name="sex_preference" value="women">Women<br>
         Tagline: <input  type="text"name="tagline"><br>
         Upload photo: <input type="file" name="photo" >
-        
+
+        <input type="submit" id="submit">
+      </form>
+    </div>
+  </script>
+
+  <script id="profile-template" type="text/x-handlebars-template">
+    <div class="signinform">
+      <form id="signin-form">
+        Email:<input type="email" name="email"><br>
+        Password:<input type="password" name="password"><br>
         <input type="submit" id="submit">
       </form>
     </div>

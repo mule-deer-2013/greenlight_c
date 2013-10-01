@@ -10,6 +10,7 @@ Controller.prototype = {
     $(document).on('click', '#green-button', function() { self.vote("yes") });
     $(document).on('click', '#red-button', function() { self.vote("no") });
     $(document).on('submit', "#profileform", function() { self.signup() });
+    $(document).on('submit', '#signinform', function() { self.signin() });
   },
 
   vote: function(opinion) {
@@ -32,7 +33,7 @@ Controller.prototype = {
     .done(function(data) {
       var user = new User(data);
       self.render(templateSelector, user);
-      // $('#greenbutton').on('click', voteOnProfile); 
+      // $('#greenbutton').on('click', voteOnProfile);
       //getLocation()
     });
   },
@@ -49,11 +50,27 @@ Controller.prototype = {
       processData: false
     })
     .done(function(data) {
-      localStorage['currentUser']= data.id 
+      localStorage['currentUser']= data.id
       $('.signupform').toggle();
       self.getRandomUser();
     });
   },
+
+  signin: function(e) {
+    e.preventDefault();
+    var self = this;
+    var postData = new formData();
+    $.ajax({
+      url: this.baseUrl + '/sessions',
+      type: "POST",
+      data: postData
+    })
+    .done(function(data){
+      localStorage['currentUser'] = data.id
+      $('.signinform').toggle();
+      self.getRandomUser();
+    })
+  }
 
   render: function(templateSelector, data) {
     var source   = $(templateSelector).html();
