@@ -28,9 +28,22 @@
           <input type="submit" id="submit">
         </form>
       </div>
-    </div>
-
 </script>
+
+<script id="profile-template" type="text/x-handlebars-template">
+<div class="profile">
+      <h1>Give Them The Greenlight?</h1>
+      <div class="body" data-id={{id}}>
+      <input hidden="">
+        {{name}}
+      </div>
+      <button id="greenbutton">Greenlight</button>
+      <button id="redButton">Pump the breaks</button>
+    </div>
+</script>
+
+
+
 
 </head>
 <body>
