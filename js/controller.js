@@ -71,12 +71,16 @@ var onSuccess = function(position) {
   var coords = new Object();
   coords['latitude']= position.coords.latitude;
   coords['longitude'] = position.coords.longitude;
+  console.log(localStorage['currentUser'])
   // $.ajax({
-  //   type: 'PUT',
+  //   type: "POST",
   //   URL: 'http://localhost:3000/users/' +localStorage['currentUser'],
-  //   data: coords,
-  // });
-  $.post('http://localhost:3000/users/', coords)
+  //   data: coords
+  // }).done(function(e){
+  //   thing = e
+  //   console.log(e)
+  // })
+  $.post('http://localhost:3000/users/' +localStorage['currentUser'], coords)
 
 };
 
