@@ -1,3 +1,11 @@
+body {
+  background-image: url('http://i.imgur.com/zgMWMI6.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: black;
+}
+
+
 ul li {
   list-style-type: none;
 }
@@ -6,3 +14,5 @@ ul li {
   float: right;
   margin: .25em;
 }
+
+
