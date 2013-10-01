@@ -9,8 +9,8 @@ Controller.prototype = {
     var self = this;
     $(document).on('click', '#green-button', function() { self.vote("yes") });
     $(document).on('click', '#red-button', function() { self.vote("no") });
-    $(document).on('submit', "#profileform", function() { self.signup() });
     $(document).on('submit', '#signinform', function() { self.signin() });
+    $(document).on('submit', "#profileform", function(e) { self.signup(e) });
   },
 
   vote: function(opinion) {
@@ -33,12 +33,14 @@ Controller.prototype = {
     .done(function(data) {
       var user = new User(data);
       self.render(templateSelector, user);
+       getLocation();
       // $('#greenbutton').on('click', voteOnProfile);
-      //getLocation()
     });
   },
 
-  signup: function() {
+  signup: function(e) {
+    var self = this;
+
     e.preventDefault();
     var postData = new FormData($('form')[0]);
     $.ajax({
@@ -52,6 +54,7 @@ Controller.prototype = {
     .done(function(data) {
       localStorage['currentUser']= data.id
       $('.signupform').toggle();
+
       self.getRandomUser();
     });
   },
@@ -76,5 +79,28 @@ Controller.prototype = {
     var source   = $(templateSelector).html();
     var template = Handlebars.compile(source);
     $('body').html(template(data));
-  }
+  },
+}
+
+
+
+var onSuccess = function(position) {
+  var coords = new Object();
+  coords['latitude']= position.coords.latitude;
+  coords['longitude'] = position.coords.longitude;
+  // $.ajax({
+  //   type: 'PUT',
+  //   URL: 'http://localhost:3000/users/' +localStorage['currentUser'],
+  //   data: coords,
+  // });
+  $.post('http://localhost:3000/users/', coords)
+
+};
+
+function onError(error) {
+  alert('please turn on your location settings for greenlight' );
+}
+
+function getLocation(){
+  navigator.geolocation.getCurrentPosition(onSuccess, onError);
 }
