@@ -4,7 +4,7 @@ var Showprofile = {
   init: function() {
     console.log("im in the showprofile function");
     $.ajax({
-      url: 'http://localhost:3000/users/1', //hard coded; need to fix
+      url: 'http://localhost:3000/users/', //hard coded; need to fix
       type: "GET",
       success: function(data) {
         console.log(data);
@@ -25,6 +25,7 @@ var Showprofile = {
 //
 
 $(document).ready(function(){
+  var userId = localStorage['currentUser']
   $('#signup').on("click", signup);
 });
 
@@ -35,6 +36,7 @@ var signup = function() {
   var template = Handlebars.compile(source);
   $('body').append(template);
   $("#profileform").on("submit", createUser);
+
   };
 
 
@@ -52,9 +54,10 @@ var createUser = function(e) {
       contentType: false,
       processData: false,
       success: function(data){
+        console.log(data);
         $('.signupform').toggle();
-        Showprofile.init();
          $('#start_looking').on('click',showUsers());
+         localStorage['currentUser']= data.id 
       }
     })
 
@@ -68,20 +71,24 @@ var createUser = function(e) {
       var source   = $("#profile-template").html();
       var template = Handlebars.compile(source);
       $('body').html(template({name: data.name, id: data.id}));
-      $('#greenbutton').on('click', voteOnProfile);
+      $('#greenbutton').on('click', voteOnProfile); 
     }
   });
 };
 
 var voteOnProfile = function() {
-  var profileID = $('.body').data('id');
-  console.log(profileID);
+  var idsHash = new Object();
+  idsHash['voted_on_id'] = $('.body').data('id');
+  idsHash['voter_id'] = localStorage['currentUser'];
+  idsHash['opinion'] = "yes";
   $.ajax({
     url: 'http://localhost:3000/votes',
     type: "POST",
-    data: profileID,
-    success: function() {
-      showUser()
+    dataType: "JSON",
+    data: idsHash,
+    success: function(data) {
+      console.log(data);
+      showUsers();
     }
   })
 }
