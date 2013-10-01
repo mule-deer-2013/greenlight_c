@@ -51,7 +51,7 @@
   <script id="profile-template" type="text/x-handlebars-template">
     <div class="profile">
       <h1>Give Them The Greenlight?</h1>
-        <div class="body" data-id={{id}}>
+        <div class="user" data-id={{id}}>
           <ul>
             <li><img src={{photo}}></li>
             <li>{{name}}</li>
@@ -59,8 +59,8 @@
             <li>{{tagline}}</li>
           </ul>
         </div>
-          <button id="greenbutton">Greenlight</button>
-          <button id="redButton">Pump the breaks</button>
+          <button id="green-button">Greenlight</button>
+          <button id="red-button">Pump the breaks</button>
     </div>
   </script>
 
@@ -104,6 +104,10 @@
     <script src="js/lib/handlebars.js"></script>
 
     <!-- our js -->
+    <script src="js/user.js"></script>
+    <script src="js/controller.js"></script>
     <script src="js/greenlight.js"></script>
+  <!-- // <script src="http://code.google.com/apis/gears/gears_init.js" type="text/javascript"></script> -->
+<!-- <script src="geo.js" type="text/javascript" ></script> -->
 </body>
 </html>

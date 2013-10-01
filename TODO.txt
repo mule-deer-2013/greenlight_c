@@ -1,0 +1,4 @@
+# TODO
+
+# 1. Need a user object.
+# 2. Figure out how to break apart index.html into various .hbs templates.
