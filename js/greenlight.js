@@ -71,7 +71,8 @@ var createUser = function(e) {
       var source   = $("#profile-template").html();
       var template = Handlebars.compile(source);
     //photo is coming back undefined here
-      $('body').html(template({name: data.name, age: data.age, tagline: data.tagline, photo: data.photo, id: data.id}));
+      console.log(data);
+      $('body').html(template({name: data.user.name, age: data.user.age, tagline: data.user.tagline, photo: data.photo, id: data.user.id}));
       $('#greenbutton').on('click', voteOnProfile); 
     }
   });
