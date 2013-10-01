@@ -25,6 +25,7 @@ var Showprofile = {
 //
 
 $(document).ready(function(){
+  var userId = localStorage['currentUser']
   $('#signup').on("click", signup);
 });
 
@@ -35,6 +36,7 @@ var signup = function() {
   var template = Handlebars.compile(source);
   $('body').append(template);
   $("#profileform").on("submit", createUser);
+
   };
 
 
@@ -56,6 +58,7 @@ var createUser = function(e) {
         $('.signupform').toggle();
         Showprofile.init();
          $('#start_looking').on('click',showUsers());
+         localStorage['currentUser']= data.id 
       }
     })
 
@@ -68,8 +71,9 @@ var createUser = function(e) {
     success: function(data) {
       var source   = $("#profile-template").html();
       var template = Handlebars.compile(source);
-      $('body').html(template({name: data.name, id: data.id}));
-      $('#greenbutton').on('click', voteOnProfile);
+      $('body').html(template({name: data.name, id: data.id, currentUser: localStorage['currentUser']}));
+      $('#greenbutton').on('click', voteOnProfile); 
+
     }
   });
 };
