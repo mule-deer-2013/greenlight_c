@@ -1,6 +1,5 @@
 var Controller = function(baseUrl) {
   this.baseUrl = baseUrl;
-
   this.initialize();
 };
 
@@ -9,7 +8,8 @@ Controller.prototype = {
     var self = this;
     $(document).on('click', '#green-button', function() { self.vote("yes") });
     $(document).on('click', '#red-button', function() { self.vote("no") });
-    $(document).on('submit', "#profileform", function() { self.signup() });
+    $(document).on('submit', "#profileform", function(e) { self.signup(e) });
+    $(document).on('click', "#signup", function() { self.renderForm("#signup-template") });
   },
 
   vote: function(opinion) {
@@ -37,7 +37,7 @@ Controller.prototype = {
     });
   },
 
-  signup: function() {
+  signup: function(e) {
     e.preventDefault();
     var postData = new FormData($('form')[0]);
     $.ajax({
@@ -59,5 +59,35 @@ Controller.prototype = {
     var source   = $(templateSelector).html();
     var template = Handlebars.compile(source);
     $('body').html(template(data));
+  },
+
+
+  renderForm: function(templateSelector) {
+    var source   = $(templateSelector).html();
+    var template = Handlebars.compile(source);
+    $('body').html(template);
   }
+
+
+
 }
+
+
+
+
+// var renderForm = function(templateSelector) {
+//     var source   = $(templateSelector).html();
+//     var template = Handlebars.compile(source);
+//     $('body').html(template);
+//   };
+// // $(function() {
+//   var controller = new Controller('http://localhost:3000');
+//   if (localStorage['currentUser']) {
+//     controller.getRandomUser();
+//   } else {
+//     var source   = $("#signup-template").html();
+//     var template = Handlebars.compile(source);
+//     $('body').append(template(data));
+//   }
+// });
+
