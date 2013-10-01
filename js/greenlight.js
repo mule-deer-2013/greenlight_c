@@ -4,7 +4,7 @@ var Showprofile = {
   init: function() {
     console.log("im in the showprofile function");
     $.ajax({
-      url: 'http://localhost:3000/users/', //hard coded; need to fix
+      url: 'http://localhost:3000/users/1', //hard coded; need to fix
       type: "GET",
       success: function(data) {
         console.log(data);
@@ -70,6 +70,7 @@ var createUser = function(e) {
     success: function(data) {
       var source   = $("#profile-template").html();
       var template = Handlebars.compile(source);
+    //photo is coming back undefined here
       $('body').html(template({name: data.name, age: data.age, tagline: data.tagline, photo: data.photo, id: data.id}));
       $('#greenbutton').on('click', voteOnProfile); 
     }
