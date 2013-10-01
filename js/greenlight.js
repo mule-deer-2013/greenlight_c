@@ -70,7 +70,7 @@ var createUser = function(e) {
     success: function(data) {
       var source   = $("#profile-template").html();
       var template = Handlebars.compile(source);
-      $('body').html(template({name: data.name, id: data.id}));
+      $('body').html(template({name: data.name, age: data.age, tagline: data.tagline, photo: data.photo, id: data.id}));
       $('#greenbutton').on('click', voteOnProfile); 
     }
   });
