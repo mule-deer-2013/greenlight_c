@@ -52,6 +52,7 @@ var createUser = function(e) {
       contentType: false,
       processData: false,
       success: function(data){
+        console.log(data);
         $('.signupform').toggle();
         Showprofile.init();
          $('#start_looking').on('click',showUsers());
@@ -74,14 +75,16 @@ var createUser = function(e) {
 };
 
 var voteOnProfile = function() {
-  var profileID = $('.body').data('id');
-  console.log(profileID);
+  var votedOnId = new Object();
+  votedOnId['id'] = $('.body').data('id');
+  console.log(votedOnId);
   $.ajax({
     url: 'http://localhost:3000/votes',
     type: "POST",
-    data: profileID,
+    dataType: "JSON",
+    data: votedOnId,
     success: function() {
-      showUser()
+      showUsers()
     }
   })
 }
