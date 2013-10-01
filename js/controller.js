@@ -6,10 +6,11 @@ var Controller = function(baseUrl) {
 Controller.prototype = {
   initialize: function() {
     var self = this;
-    $(document).on('click', '#green-button', function() { self.vote("yes") });
-    $(document).on('click', '#red-button', function() { self.vote("no") });
     $(document).on('submit', "#profileform", function(e) { self.signup(e) });
     $(document).on('click', "#signup", function() { self.renderForm("#signup-template") });
+    $(document).on('submit', '#signinform', function() { self.signin() });
+    $(document).on('click', '#green-button', function() { self.vote("yes") });
+    $(document).on('click', '#red-button', function() { self.vote("no") });
   },
 
   vote: function(opinion) {
@@ -32,12 +33,13 @@ Controller.prototype = {
     .done(function(data) {
       var user = new User(data);
       self.render(templateSelector, user);
-      // $('#greenbutton').on('click', voteOnProfile); 
-      //getLocation()
+       getLocation();
+      // $('#greenbutton').on('click', voteOnProfile);
     });
   },
 
   signup: function(e) {
+    var self = this;
     e.preventDefault();
     var postData = new FormData($('form')[0]);
     $.ajax({
@@ -49,11 +51,28 @@ Controller.prototype = {
       processData: false
     })
     .done(function(data) {
-      localStorage['currentUser']= data.id 
+      localStorage['currentUser']= data.id
       $('.signupform').toggle();
+
       self.getRandomUser();
     });
   },
+
+  signin: function(e) {
+    e.preventDefault();
+    var self = this;
+    var postData = new formData();
+    $.ajax({
+      url: this.baseUrl + '/sessions',
+      type: "POST",
+      data: postData
+    })
+    .done(function(data){
+      localStorage['currentUser'] = data.id
+      $('.signinform').toggle();
+      self.getRandomUser();
+    })
+  }
 
   render: function(templateSelector, data) {
     var source   = $(templateSelector).html();
@@ -61,15 +80,33 @@ Controller.prototype = {
     $('body').html(template(data));
   },
 
-
   renderForm: function(templateSelector) {
     var source   = $(templateSelector).html();
     var template = Handlebars.compile(source);
     $('body').html(template);
   }
 
+}
 
 
+var onSuccess = function(position) {
+  var coords = new Object();
+  coords['latitude']= position.coords.latitude;
+  coords['longitude'] = position.coords.longitude;
+  // $.ajax({
+  //   type: 'PUT',
+  //   URL: 'http://localhost:3000/users/' +localStorage['currentUser'],
+  //   data: coords,
+  // });
+  $.post('http://localhost:3000/users/', coords)
+};
+
+function onError(error) {
+  alert('please turn on your location settings for greenlight' );
+}
+
+function getLocation(){
+  navigator.geolocation.getCurrentPosition(onSuccess, onError);
 }
 
 
