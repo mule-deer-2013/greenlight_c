@@ -2,4 +2,7 @@ ul li {
   list-style-type: none;
 }
 
-
+.btn-success {
+  float: right;
+  margin: .25em;
+}
