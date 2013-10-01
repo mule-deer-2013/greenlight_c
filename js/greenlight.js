@@ -2,9 +2,6 @@
 
 $(document).ready(function(){
   $('#signup').on("click", signup);
-  $("#profileform").on("submit", function(){
-
-  });
 
 });
 
