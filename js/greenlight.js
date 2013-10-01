@@ -4,7 +4,7 @@ var Showprofile = {
   init: function() {
     console.log("im in the showprofile function");
     $.ajax({
-      url: 'http://localhost:3000/users/1', //hard coded; need to fix
+      url: 'http://localhost:3000/users/', //hard coded; need to fix
       type: "GET",
       success: function(data) {
         console.log(data);
@@ -56,7 +56,6 @@ var createUser = function(e) {
       success: function(data){
         console.log(data);
         $('.signupform').toggle();
-        Showprofile.init();
          $('#start_looking').on('click',showUsers());
          localStorage['currentUser']= data.id 
       }
@@ -71,24 +70,25 @@ var createUser = function(e) {
     success: function(data) {
       var source   = $("#profile-template").html();
       var template = Handlebars.compile(source);
-      $('body').html(template({name: data.name, id: data.id, currentUser: localStorage['currentUser']}));
+      $('body').html(template({name: data.name, id: data.id}));
       $('#greenbutton').on('click', voteOnProfile); 
-
     }
   });
 };
 
 var voteOnProfile = function() {
-  var votedOnId = new Object();
-  votedOnId['id'] = $('.body').data('id');
-  console.log(votedOnId);
+  var idsHash = new Object();
+  idsHash['voted_on_id'] = $('.body').data('id');
+  idsHash['voter_id'] = localStorage['currentUser'];
+  idsHash['opinion'] = "yes";
   $.ajax({
     url: 'http://localhost:3000/votes',
     type: "POST",
     dataType: "JSON",
-    data: votedOnId,
-    success: function() {
-      showUsers()
+    data: idsHash,
+    success: function(data) {
+      console.log(data);
+      showUsers();
     }
   })
 }
