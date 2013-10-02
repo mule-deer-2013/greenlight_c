@@ -8,7 +8,7 @@ Controller.prototype = {
     var self = this;
     $(document).on('submit', "#profileform", function(e) { self.signup(e) });
     $(document).on('click', "#signup", function() { self.renderForm("#signup-template") });
-    $(document).on('submit', '#signinform', function() { self.signin() });
+    // $(document).on('submit', '#signinform', function() { self.signin() });
     $(document).on('click', '#green-button', function() { self.vote("yes") });
     $(document).on('click', '#red-button', function() { self.vote("no") });
   },
@@ -27,18 +27,22 @@ Controller.prototype = {
   },
 
   getRandomUser: function() {
+    console.log("get Random User");
     var self = this;
     var templateSelector = "#profile-template";
     $.ajax({url: self.baseUrl + '/users/random'})
     .done(function(data) {
+      console.log('in the completed random');
+      console.log(data);
       var user = new User(data);
       self.render(templateSelector, user);
-       getLocation();
+       // getLocation();
       // $('#greenbutton').on('click', voteOnProfile);
     });
   },
 
   signup: function(e) {
+    console.log("get signup")
     var self = this;
     e.preventDefault();
     var postData = new FormData($('form')[0]);
@@ -58,21 +62,24 @@ Controller.prototype = {
     });
   },
 
-  signin: function(e) {
-    e.preventDefault();
-    var self = this;
-    var postData = new formData();
-    $.ajax({
-      url: this.baseUrl + '/sessions',
-      type: "POST",
-      data: postData
-    })
-    .done(function(data){
-      localStorage['currentUser'] = data.id
-      $('.signinform').toggle();
-      self.getRandomUser();
-    })
-  },
+
+
+  // signin: function(e) {
+  //   e.preventDefault();
+  //   var self = this;
+  //   var postData = new formData();
+  //   $.ajax({
+  //     url: this.baseUrl + '/sessions',
+  //     type: "POST",
+  //     data: postData
+  //   })
+  //   .done(function(data){
+  //     localStorage['currentUser'] = data.id
+  //     $('.signinform').toggle();
+  //     self.getRandomUser();
+  //   })
+  // },
+
 
   render: function(templateSelector, data) {
     var source   = $(templateSelector).html();
@@ -98,7 +105,7 @@ var onSuccess = function(position) {
 };
 
 function onError(error) {
-  alert('please turn on your location settings for greenlight' );
+  // alert('please turn on your location settings for greenlight' );
 }
 
 function getLocation(){
@@ -108,19 +115,4 @@ function getLocation(){
 
 
 
-// var renderForm = function(templateSelector) {
-//     var source   = $(templateSelector).html();
-//     var template = Handlebars.compile(source);
-//     $('body').html(template);
-//   };
-// // $(function() {
-//   var controller = new Controller('http://localhost:3000');
-//   if (localStorage['currentUser']) {
-//     controller.getRandomUser();
-//   } else {
-//     var source   = $("#signup-template").html();
-//     var template = Handlebars.compile(source);
-//     $('body').append(template(data));
-//   }
-// });
 

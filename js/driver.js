@@ -1,12 +1,13 @@
 $(document).ready(runApp)
 
 function runApp(){
-  testController = new Controller("http://localhost:3000/")
-}
+  console.log('hi')
+  var testController = new Controller("http://localhost:3000/")
+} 
 
 
 
-//testing, debug helpers!
+// //testing, debug helpers!
 
 function autoFillProfile(){
   $($("#profileform").children()[0]).val("asdf")
