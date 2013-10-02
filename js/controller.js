@@ -9,7 +9,7 @@ Controller.prototype = {
     var self = this;
     $(document).on('click', '#green-button', function() { self.vote("yes") });
     $(document).on('click', '#red-button', function() { self.vote("no") });
-    $(document).on('submit', "#profileform", function() { self.signup() });
+    $(document).on('submit', "#profileform", function(e) { self.signup(e) });
   },
 
   vote: function(opinion) {
@@ -26,18 +26,28 @@ Controller.prototype = {
   },
 
   getRandomUser: function() {
+    console.log("in getRandomUser ");
     var self = this;
     var templateSelector = "#profile-template";
-    $.ajax({url: self.baseUrl + '/users/random'})
+    $.ajax({ url: self.baseUrl + '/users/'+ localStorage['currentUser'] })
     .done(function(data) {
+      console.log(data);
       var user = new User(data);
       self.render(templateSelector, user);
       // $('#greenbutton').on('click', voteOnProfile); 
       //getLocation()
+    })
+    .fail(function(data) {
+      console.log (data);
+      console.log('something failed');
+      var templateSelector = "#no-match-template";
+      var noMatch = new Object();
+      noMatch['message'] = 'Currently, there are no matches. Please try again later.'
+      self.render(templateSelector, noMatch);
     });
   },
 
-  signup: function() {
+  signup: function(e) {
     e.preventDefault();
     var postData = new FormData($('form')[0]);
     $.ajax({
@@ -59,5 +69,7 @@ Controller.prototype = {
     var source   = $(templateSelector).html();
     var template = Handlebars.compile(source);
     $('body').html(template(data));
-  }
+  },
+
+  
 }

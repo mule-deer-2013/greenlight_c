@@ -41,10 +41,21 @@
         Interested In:  <br><input type="checkbox" name="sex_preference" value="men">Men<br>
                 <input type="checkbox" name="sex_preference" value="women">Women<br>
         Tagline: <input  type="text"name="tagline"><br>
-        Upload photo: <input type="file" name="photo" >
+        Upload photo: <input type="file" name="photo">
         
         <input type="submit" id="submit">
       </form>
+    </div>
+  </script>
+
+  <script id="no-match-template">
+    <div class="no-match-message">
+      <h1>Give Them The Greenlight?</h1>
+        <div class="data" data-id={{id}}>
+          <h3>{{message}}</h3>
+        </div>
+          <button id="green-button">Greenlight</button>
+          <button id="red-button">Pump the breaks</button>
     </div>
   </script>
 
