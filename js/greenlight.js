@@ -11,11 +11,11 @@
 //         var source = $("#entry-template").html();
 //         var template = Handlebars.compile(source);
 //         $('body').append(template({
-//           name: data.user.name, 
+//           name: data.user.name,
 //           age: data.user.age,
-//           sex: data.user.sex, 
+//           sex: data.user.sex,
 //           sex_preference: data.user.sex_preference,
-//           photo: data.user.photo 
+//           photo: data.user.photo
 //         })
 //         );
 //       }
@@ -25,10 +25,10 @@
 // //
 
 
-// ("#signup").on('click', function() { 
+// ("#signup").on('click', funsuction() {
 //   var source   = $("#signup-template").html();
 //   var template = Handlebars.compile(source);
-//   $('body').append(template) 
+//   $('body').append(template)
 //   $("#profileform").on("submit", createUser);
 // });
 
@@ -60,7 +60,7 @@
 //         console.log(data);
 //         $('.signupform').toggle();
 //         $('#start_looking').on('click',showUsers());
-//         localStorage['currentUser']= data.id 
+//         localStorage['currentUser']= data.id
 //       }
 //     })
 
@@ -74,7 +74,7 @@
 //     //photo is coming back undefined here
 //     console.log(data);
 //     $('body').html(template({name: data.user.name, age: data.user.age, tagline: data.user.tagline, photo: data.photo, id: data.user.id}));
-//     $('#greenbutton').on('click', voteOnProfile); 
+//     $('#greenbutton').on('click', voteOnProfile);
 //     //getLocation()
 //   })
 //   .fail(function() {
@@ -112,7 +112,7 @@
 // //     var longtitude = p.coords.longtitude
 // //     alert(latitude)
 // //   }
-  
+
 // //   function geoError(){
 // //     alert('please allow access to your location')
 // //   }
