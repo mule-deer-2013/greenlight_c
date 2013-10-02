@@ -9,6 +9,12 @@ Controller.prototype = {
     var self = this;
     $(document).on('click', '#green-button', function() { self.vote("yes") });
     $(document).on('click', '#red-button', function() { self.vote("no") });
+    $(document).on('click', "#signup", function() { self.renderForm("#signup-template") })
+    $(document).on('click', '#signin', function() { self.renderForm("#signin-template") })
+    $(document).on(globalEvents.logIn, function(){
+      console.log("i am responding to that event you fired")
+      self.getRandomUser()
+    })
   },
 
   vote: function(opinion) {

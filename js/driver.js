@@ -3,8 +3,11 @@ $(document).ready(runApp)
 function runApp(){
   console.log('hi, runapp')
   var serverBase = "http://localhost:3001/"
-
-  var auth = new AuthenticationController(serverBase)
+  globalEvents = {
+    logIn:"log-in"
+  }
+  // var
+   auth = new AuthenticationController(serverBase)
   var testController = new Controller(serverBase, auth)
 }
 

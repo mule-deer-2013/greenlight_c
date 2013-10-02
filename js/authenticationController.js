@@ -5,14 +5,14 @@ var AuthenticationController = function(baseUrl){
 
 AuthenticationController.prototype = {
   initialize: function() {
-    var self = this;
-    $(document).on('submit', "#profileform", function(e) { self.signup(e) });
-    $(document).on('submit', "#signin-form", function(e) { self.signin(e) });
+    var self = this
+    $(document).on('submit', "#profileform", function(e) { self.signup(e) })
+    $(document).on('submit', "#signin-form", function(e) { self.signin(e) })
     $(document).on('click', '.btn-danger', function(e) { self.logout(e) })
-    $(document).on('click', "#signup", function() { self.renderForm("#signup-template") });
-    $(document).on('click', '#signin', function() { self.renderForm("#signin-template") });
   },
-
+  clear:function(){
+    localStorage.clear()
+  },
   setCurrentUser:function(current_user){
     localStorage['currentUser'] = current_user
   },
@@ -22,24 +22,30 @@ AuthenticationController.prototype = {
   },
 
   signin: function(e) {
-    e.preventDefault();
-    var self = this;
-    $.ajax({
-      url: self.baseUrl + 'sessions',
-      type: "POST",
-      data: $('form').serialize()
-    })
-    .done(function(data){
-      setCurrentUser(data.id)
-      $('.signinform').toggle();
-        self.getRandomUser();
+    e.preventDefault()
+    var self = this
+    $.ajax(self.buildSigninRequestObject())
+    .success(function(data){
+      self.setCurrentUser(data.id)
+      $('.signinform').toggle()
+      $(document).trigger(globalEvents.logIn)
     })
   },
-
+  buildSigninRequestObject:function(){
+    var self = this
+    return {
+      url: self.baseUrl + 'sessions',
+      type: "POST",
+      data: self.getForm()
+    }
+  },
+  getForm:function(){
+    return $('form').serialize()
+  },
   signup: function(e) {
-    e.preventDefault();
-    var self = this;
-    var postData = new FormData($('form')[0]);
+    e.preventDefault()
+    var self = this
+    var postData = new FormData($('form')[0])
     $.ajax({
       // shouldn't "this" be "self" instead?
       url: this.baseUrl + '/users',
@@ -51,18 +57,18 @@ AuthenticationController.prototype = {
     })
     .done(function(data) {
       setCurrentUser(data.id)
-      $('.signupform').toggle();
+      $('.signupform').toggle()
 
-      self.getRandomUser();
+      self.getRandomUser()
     })
     .fail(function(){
-      console.log("FUCK!");
+      console.log("FUCK!")
     })
   },
 
   logout: function(e) {
-    e.preventDefault();
-    var self = this;
+    e.preventDefault()
+    var self = this
     $.ajax({
       url: self.baseUrl + 'sessions/' + getCurrentUser(),
       type: "POST"
