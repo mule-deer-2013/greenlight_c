@@ -54,44 +54,6 @@ Controller.prototype = {
     });
   },
 
-  signup: function(e) {
-    console.log("get signup")
-    var self = this;
-    e.preventDefault();
-    var postData = new FormData($('form')[0]);
-    $.ajax({
-      url: this.baseUrl + '/users',
-      type: "POST",
-      data: postData,
-      cache: false,
-      contentType: false,
-      processData: false
-    })
-    .done(function(data) {
-      localStorage['currentUser']= data.id
-      $('.signupform').toggle();
-
-      self.getRandomUser();
-    });
-  },
-
-
-
-  // signin: function(e) {
-  //   e.preventDefault();
-  //   var self = this;
-  //   var postData = new formData();
-  //   $.ajax({
-  //     url: this.baseUrl + '/sessions',
-  //     type: "POST",
-  //     data: postData
-  //   })
-  //   .done(function(data){
-  //     localStorage['currentUser'] = data.id
-  //     $('.signinform').toggle();
-  //     self.getRandomUser();
-  //   })
-  // },
 
 
   render: function(templateSelector, data) {
@@ -149,8 +111,4 @@ function onError(error) {
 function getLocation(){
   navigator.geolocation.getCurrentPosition(onSuccess, onError);
 }
-
-
-
-
 
