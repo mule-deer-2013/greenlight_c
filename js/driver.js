@@ -2,7 +2,7 @@ $(document).ready(runApp)
 
 function runApp(){
   console.log('hi, runapp')
-  var serverBase = "http://localhost:3001/"
+  var serverBase = "http://localhost:3000"
   globalEvents = {
     logIn:"log-in"
   }

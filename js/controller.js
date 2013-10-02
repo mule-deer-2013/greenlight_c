@@ -31,6 +31,7 @@ Controller.prototype = {
   },
 
   getRandomUser: function() {
+    console.log("event trigger is getting me into getRandomUser!")
     var self  = this;
     var templateSelector = "#profile-template";
     $.ajax({
@@ -38,9 +39,10 @@ Controller.prototype = {
       data: self.auth.getCurrentUser()
     })
     .done(function(response) {
+      console.log("event trigger is getting me into getRandomUser ajax!")
       var user = new User(response);
       self.render(templateSelector, user);
-       // getLocation();
+       getLocation();
       // $('#greenbutton').on('click', voteOnProfile);
     });
   },

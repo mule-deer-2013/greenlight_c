@@ -2,7 +2,7 @@ describe("authentication controller", function() {
   var auth
 
   beforeEach(function() {
-    BASEURL = "http://localhost:3001/"
+    BASEURL = "http://localhost:3000"
     auth = new AuthenticationController(BASEURL)
     auth.clear()
   })

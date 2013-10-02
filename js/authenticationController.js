@@ -34,7 +34,7 @@ AuthenticationController.prototype = {
   buildSigninRequestObject:function(){
     var self = this
     return {
-      url: self.baseUrl + 'sessions',
+      url: self.baseUrl + '/sessions',
       type: "POST",
       data: self.getForm()
     }
@@ -70,7 +70,7 @@ AuthenticationController.prototype = {
     e.preventDefault()
     var self = this
     $.ajax({
-      url: self.baseUrl + 'sessions/' + getCurrentUser(),
+      url: self.baseUrl + '/sessions/' + getCurrentUser(),
       type: "POST"
     })
     .done(function(){
