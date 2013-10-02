@@ -9,7 +9,7 @@ Controller.prototype = {
     var self = this;
     $(document).on('click', '#green-button', function() { self.vote("yes") });
     $(document).on('click', '#red-button', function() { self.vote("no") });
-    $(document).on('submit', '#signinform', function() { self.signin() });
+    $(document).on('submit', '#signin-form', function() { self.signin() });
     $(document).on('submit', "#profileform", function(e) { self.signup(e) });
   },
 
@@ -59,8 +59,8 @@ Controller.prototype = {
     });
   },
 
-  signin: function(e) {
-    e.preventDefault();
+  signin: function() {
+
     var self = this;
     var postData = new formData();
     $.ajax({
@@ -73,34 +73,34 @@ Controller.prototype = {
       $('.signinform').toggle();
       self.getRandomUser();
     })
-  }
+  },
 
   render: function(templateSelector, data) {
     var source   = $(templateSelector).html();
     var template = Handlebars.compile(source);
     $('body').html(template(data));
-  },
+  }
 }
 
 
 
-var onSuccess = function(position) {
-  var coords = new Object();
-  coords['latitude']= position.coords.latitude;
-  coords['longitude'] = position.coords.longitude;
-  // $.ajax({
-  //   type: 'PUT',
-  //   URL: 'http://localhost:3000/users/' +localStorage['currentUser'],
-  //   data: coords,
-  // });
-  $.post('http://localhost:3000/users/', coords)
+// var onSuccess = function(position) {
+//   var coords = new Object();
+//   coords['latitude']= position.coords.latitude;
+//   coords['longitude'] = position.coords.longitude;
+//   // $.ajax({
+//   //   type: 'PUT',
+//   //   URL: 'http://localhost:3000/users/' +localStorage['currentUser'],
+//   //   data: coords,
+//   // });
+//   $.post('http://localhost:3000/users/', coords)
 
-};
+// };
 
-function onError(error) {
-  alert('please turn on your location settings for greenlight' );
-}
+// function onError(error) {
+//   alert('please turn on your location settings for greenlight' );
+// }
 
-function getLocation(){
-  navigator.geolocation.getCurrentPosition(onSuccess, onError);
-}
+// function getLocation(){
+//   navigator.geolocation.getCurrentPosition(onSuccess, onError);
+// }
