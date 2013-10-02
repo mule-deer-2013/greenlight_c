@@ -1,15 +1,16 @@
 var Controller = function(baseUrl) {
   this.baseUrl = baseUrl;
-
   this.initialize();
 };
 
 Controller.prototype = {
   initialize: function() {
     var self = this;
+    $(document).on('submit', "#profileform", function(e) { self.signup(e) });
+    $(document).on('click', "#signup", function() { self.renderForm("#signup-template") });
+    $(document).on('submit', '#signinform', function() { self.signin() });
     $(document).on('click', '#green-button', function() { self.vote("yes") });
     $(document).on('click', '#red-button', function() { self.vote("no") });
-    $(document).on('submit', "#profileform", function(e) { self.signup(e) });
   },
 
   vote: function(opinion) {
@@ -39,7 +40,6 @@ Controller.prototype = {
 
   signup: function(e) {
     var self = this;
-
     e.preventDefault();
     var postData = new FormData($('form')[0]);
     $.ajax({
@@ -58,13 +58,35 @@ Controller.prototype = {
     });
   },
 
+  signin: function(e) {
+    e.preventDefault();
+    var self = this;
+    var postData = new formData();
+    $.ajax({
+      url: this.baseUrl + '/sessions',
+      type: "POST",
+      data: postData
+    })
+    .done(function(data){
+      localStorage['currentUser'] = data.id
+      $('.signinform').toggle();
+      self.getRandomUser();
+    })
+  },
+
   render: function(templateSelector, data) {
     var source   = $(templateSelector).html();
     var template = Handlebars.compile(source);
     $('body').html(template(data));
   },
-}
 
+  renderForm: function(templateSelector) {
+    var source   = $(templateSelector).html();
+    var template = Handlebars.compile(source);
+    $('body').html(template);
+  }
+
+}
 
 
 var onSuccess = function(position) {
@@ -72,16 +94,7 @@ var onSuccess = function(position) {
   coords['latitude']= position.coords.latitude;
   coords['longitude'] = position.coords.longitude;
   console.log(localStorage['currentUser'])
-  // $.ajax({
-  //   type: "POST",
-  //   URL: 'http://localhost:3000/users/' +localStorage['currentUser'],
-  //   data: coords
-  // }).done(function(e){
-  //   thing = e
-  //   console.log(e)
-  // })
   $.post('http://localhost:3000/users/' +localStorage['currentUser'], coords)
-
 };
 
 function onError(error) {
@@ -91,3 +104,23 @@ function onError(error) {
 function getLocation(){
   navigator.geolocation.getCurrentPosition(onSuccess, onError);
 }
+
+
+
+
+// var renderForm = function(templateSelector) {
+//     var source   = $(templateSelector).html();
+//     var template = Handlebars.compile(source);
+//     $('body').html(template);
+//   };
+// // $(function() {
+//   var controller = new Controller('http://localhost:3000');
+//   if (localStorage['currentUser']) {
+//     controller.getRandomUser();
+//   } else {
+//     var source   = $("#signup-template").html();
+//     var template = Handlebars.compile(source);
+//     $('body').append(template(data));
+//   }
+// });
+
