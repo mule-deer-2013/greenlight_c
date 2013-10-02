@@ -10,17 +10,17 @@
   <title>Green Light</title>
   <script id="entry-template" type="text/x-handlebars-template">
   <div class="entry">
-  <h1>Welcome {{name}}!</h1>
-  <div class="body">
-  <ul>
-  <li>Your name: {{name}}</li>
-  <li>Your age: {{age}}</li>
-  <li>Your gender: {{sex}}</li>
-  <li>Interested in: {{sex_preference}}</li>
-  <li>Your profile picture: <img src="{{photo}}"></li>
-  </ul>
-  <button id="start_looking">Start looking for singles</button>
-  </div>
+    <h1>Welcome {{name}}!</h1>
+    <div class="body">
+      <ul>
+        <li>Your name: {{name}}</li>
+        <li>Your age: {{age}}</li>
+        <li>Your gender: {{sex}}</li>
+        <li>Interested in: {{sex_preference}}</li>
+        <li>Your profile picture: <img src="{{photo}}"></li>
+      </ul>
+      <button id="start_looking">Start looking for singles</button>
+    </div>
   </div>
   </script>
 
@@ -73,34 +73,36 @@
 
 
   <script id="signin-template" type="text/x-handlebars-template">
-    <div class="signinform">
-      <form id="signin-form">
-        Email:<input type="email" name="email"><br>
-        Password:<input type="password" name="password"><br>
-        <input type="submit" id="submit">
-      </form>
-    </div>
+      <div class="signinform">
+        <form id="signin-form">
+          Email:<input type="email" name="email"><br>
+          Password:<input type="password" name="password"><br>
+          <input type="submit" id="submit">
+        </form>
+      </div>
 
   </script>
 
   <script id="profile-template" type="text/x-handlebars-template">
-  <div class="profile">
-  <h1>Give Them The Greenlight?</h1>
-  <div class="user" data-id={{id}}>
-  <ul>
-  <li><img src={{photo}}></li>
-  <li>{{name}}</li>
-  <li>{{age}}</li>
-  <li>{{tagline}}</li>
-  </ul>
-  </div>
-  <button id="green-button">Greenlight</button>
-  <button id="red-button">Pump the breaks</button>
-  </div>
+    <div class="profile">
+      <h1>Give Them The Greenlight?</h1>
+        <div class="user" data-id={{id}}>
+          <ul>
+            <li><img src={{photo}}></li>
+            <li>{{name}}</li>
+            <li>{{age}}</li>
+            <li>{{tagline}}</li>
+          </ul>
+        </div>
+          <button id="green-button">Greenlight</button>
+          <button id="red-button">Pump the breaks</button>
+    </div>
   </script>
+
 
 </head>
 <body>
+
   <div class="navbar">
     <div class="navbar-inner">
       <div class="container">
@@ -120,6 +122,7 @@
         <div class="nav-collapse collapse">
           <button class="btn btn-success" id="signup">Sign Up</button>
           <button class="btn btn-success" id="signin">Sign In</button>
+          <button class="btn btn-danger hidden" id="logout">Log Out</button>
           <!-- .nav, .navbar-search, .navbar-form, etc -->
         </div>
 
@@ -142,8 +145,9 @@
     <script src="js/driver.js"></script>
     <script src="js/user.js"></script>
     <script src="js/controller.js"></script>
+    <script src="js/authenticationController.js"></script>
     <script src="js/greenlight.js"></script>
-    
+
   <!-- // <script src="http://code.google.com/apis/gears/gears_init.js" type="text/javascript"></script> -->
 <!-- <script src="geo.js" type="text/javascript" ></script> -->
 

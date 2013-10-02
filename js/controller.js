@@ -1,17 +1,21 @@
-var Controller = function(baseUrl) {
-  this.baseUrl = baseUrl;
-  this.initialize();
+var Controller = function(baseUrl, authenticator) {
+  this.baseUrl = baseUrl
+  this.auth = authenticator
+  this.initialize()
 };
 
 Controller.prototype = {
   initialize: function() {
     var self = this;
-    $(document).on('submit', "#profileform", function(e) { self.signup(e) });
-    $(document).on('click', "#signup", function() { self.renderForm("#signup-template") });
-    // $(document).on('submit', '#signinform', function() { self.signin() });
     $(document).on('click', '#green-button', function() { self.vote("yes") });
     $(document).on('click', '#red-button', function() { self.vote("no") });
     $(document).on('submit', '#send-message-button', function(e) { self.sendMessage(e) });
+    $(document).on('click', "#signup", function() { self.renderForm("#signup-template") })
+    $(document).on('click', '#signin', function() { self.renderForm("#signin-template") })
+    $(document).on(globalEvents.logIn, function(){
+      console.log("i am responding to that event you fired")
+      self.getRandomUser()
+    })
   },
 
   vote: function(opinion) {
@@ -19,7 +23,7 @@ Controller.prototype = {
     var self = this;
     var vote = new Object();
     vote['voted_on_id'] = $('.user').data('id');
-    vote['voter_id'] = localStorage['currentUser'];
+    vote['voter_id'] = self.auth.getCurrentUser();
     vote['opinion'] = opinion;
     $.post(this.baseUrl + 'votes', vote)
     .done(function(data) {
@@ -40,26 +44,27 @@ Controller.prototype = {
   },
 
   getRandomUser: function() {
-    console.log("get Random User");
-    var self = this;
+    console.log("event trigger is getting me into getRandomUser!")
+    var self  = this;
     var templateSelector = "#profile-template";
-    $.ajax({url: self.baseUrl + '/users/random'})
-    .done(function(data) {
-      console.log('in the completed random');
-      console.log(data);
-      var user = new User(data);
+    $.ajax({
+      url: self.baseUrl + '/users/random',
+      data: self.auth.getCurrentUser()
+    })
+    .done(function(response) {
+      console.log("event trigger is getting me into getRandomUser ajax!")
+      var user = new User(response);
       self.render(templateSelector, user);
-       // getLocation();
+       getLocation();
       // $('#greenbutton').on('click', voteOnProfile);
     });
   },
-
-
 
   render: function(templateSelector, data) {
     var source   = $(templateSelector).html();
     var template = Handlebars.compile(source);
     $('body').html(template(data));
+
   },
 
   renderForm: function(templateSelector) {
@@ -90,10 +95,8 @@ Controller.prototype = {
       // $('#greenbutton').on('click', voteOnProfile);
     });
   }
-
-
-
 }
+
 
 
 var onSuccess = function(position) {
@@ -111,4 +114,5 @@ function onError(error) {
 function getLocation(){
   navigator.geolocation.getCurrentPosition(onSuccess, onError);
 }
+
 
