@@ -57,5 +57,24 @@ Controller.prototype = {
     var template = Handlebars.compile(source);
     $('body').html(template);
   }
-
 }
+
+
+
+var onSuccess = function(position) {
+  var coords = new Object();
+  coords['latitude']= position.coords.latitude;
+  coords['longitude'] = position.coords.longitude;
+  console.log(localStorage['currentUser'])
+  $.post('http://localhost:3000/users/' +localStorage['currentUser'], coords)
+};
+
+function onError(error) {
+  // alert('please turn on your location settings for greenlight' );
+}
+
+function getLocation(){
+  navigator.geolocation.getCurrentPosition(onSuccess, onError);
+}
+
+
