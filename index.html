@@ -50,13 +50,13 @@
 
   
     <script id="match-message-template" type="text/x-handlebars-template">
-    <div class="main-message-form">
+    <div class="main-message-form" data-id={{id}}>
       <h1>Congrats! {{name}} gave you the Greenlight!</h1>
 
       <form id="message-form">
         Offer a place to meet! 
         <textarea rows="4" cols="50" name="message"></textarea>
-        <input type="Hurry Up Already!" id="send-message">
+        <input type="submit" id="send-message-button">
       </form>
       <button id="skip-button">Nevermind</button>
     </div>

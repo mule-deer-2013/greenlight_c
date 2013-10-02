@@ -11,6 +11,7 @@ Controller.prototype = {
     // $(document).on('submit', '#signinform', function() { self.signin() });
     $(document).on('click', '#green-button', function() { self.vote("yes") });
     $(document).on('click', '#red-button', function() { self.vote("no") });
+    $(document).on('click', '#send-message-button', function(e) { self.sendMessage(e) });
   },
 
   vote: function(opinion) {
@@ -105,16 +106,22 @@ Controller.prototype = {
     $('body').html(template);
   },
 
-   matchMessage: function() {
+   sendMessage: function(e) {
+    e.preventDefault();
+    var messageData = new Object();
+    messageData['reciever_id'] = $('.main-message-form').data('id');
+    messageData['sender_id'] = localStorage['currentUser'];
+    messageData['content'] = $('form').serialize();
     console.log("you're in the match messaging");
     var self = this;
-    var templateSelector = "#match-message-template";
-    $.ajax({url: self.baseUrl + '/users/random'})
+    $.ajax({
+      url: self.baseUrl + 'messages',
+      type: "POST",
+      data: messageData
+    })
     .done(function(data) {
-      console.log('in the completed random');
+      console.log('you have posted a message');
       console.log(data);
-      var user = new User(data);
-      self.render(templateSelector, user);
        // getLocation();
       // $('#greenbutton').on('click', voteOnProfile);
     });
