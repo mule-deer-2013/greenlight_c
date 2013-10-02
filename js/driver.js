@@ -1,9 +1,12 @@
 $(document).ready(runApp)
 
 function runApp(){
-  console.log('hi')
-  var testController = new Controller("http://localhost:3000/")
-} 
+  console.log('hi, runapp')
+  var serverBase = "http://localhost:3001/"
+
+  var auth = new AuthenticationController(serverBase)
+  var testController = new Controller(serverBase, auth)
+}
 
 
 

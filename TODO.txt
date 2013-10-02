@@ -2,3 +2,6 @@
 
 # 1. Need a user object.
 # 2. Figure out how to break apart index.html into various .hbs templates.
+
+# bugs
+form rendering breaks navbar. its a wtf. gotta get on that shit
