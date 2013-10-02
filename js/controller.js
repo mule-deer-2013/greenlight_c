@@ -11,7 +11,7 @@ Controller.prototype = {
     // $(document).on('submit', '#signinform', function() { self.signin() });
     $(document).on('click', '#green-button', function() { self.vote("yes") });
     $(document).on('click', '#red-button', function() { self.vote("no") });
-    $(document).on('click', '#send-message-button', function(e) { self.sendMessage(e) });
+    $(document).on('submit', '#send-message-button', function(e) { self.sendMessage(e) });
   },
 
   vote: function(opinion) {
@@ -108,11 +108,13 @@ Controller.prototype = {
 
    sendMessage: function(e) {
     e.preventDefault();
+    console.log("in the send message function");
     var messageData = new Object();
     messageData['reciever_id'] = $('.main-message-form').data('id');
-    messageData['sender_id'] = localStorage['currentUser'];
+    messageData['user_id'] = localStorage['currentUser'];
     messageData['content'] = $('form').serialize();
     console.log("you're in the match messaging");
+    var templateSelector = "#message-inbox-template";
     var self = this;
     $.ajax({
       url: self.baseUrl + 'messages',
@@ -122,7 +124,7 @@ Controller.prototype = {
     .done(function(data) {
       console.log('you have posted a message');
       console.log(data);
-       // getLocation();
+      // self.render(templateSelector, data);
       // $('#greenbutton').on('click', voteOnProfile);
     });
   }

@@ -62,6 +62,15 @@
     </div>
   </script>
 
+    <script id="message-inbox-template" type="text/x-handlebars-template">
+    <div class="message-inbox" data-id={{id}}>
+
+      {{#list people}}{{message}}{{name}}{{/list}}
+      <button id="back-button">Nevermind</button>
+    </div>
+  </script>
+
+
 
   <script id="signin-template" type="text/x-handlebars-template">
     <div class="signinform">
