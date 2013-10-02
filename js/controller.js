@@ -7,12 +7,16 @@ var Controller = function(baseUrl, authenticator) {
 Controller.prototype = {
   initialize: function() {
     var self = this;
-    $(document).on('click', '#green-button', function() { self.vote("yes") });
-    $(document).on('click', '#red-button', function() { self.vote("no") });
+    $(document).on('click', '#green-button', function() { self.vote("yes") })
+    $(document).on('click', '#red-button', function() { self.vote("no") })
     $(document).on('click', "#signup", function() { self.renderForm("#signup-template") })
-    $(document).on('click', '#signin', function() { self.renderForm("#signin-template") })
-    $(document).on(globalEvents.logIn, function(){
+    $(document).on('click', "#signin", function() { self.renderForm("#signin-template") })
+    $(document).on(globalEvents.logIn, function() {
       console.log("i am responding to that event you fired")
+      self.getRandomUser()
+    })
+    $(document).on(globalEvents.signUp, function() {
+      console.log("i am responding to that event you fired in signUp")
       self.getRandomUser()
     })
 
@@ -24,7 +28,7 @@ Controller.prototype = {
     vote['voted_on_id'] = $('.user').data('id');
     vote['voter_id'] = self.auth.getCurrentUser();
     vote['opinion'] = opinion;
-    $.post(this.baseUrl + 'votes', vote)
+    $.post(this.baseUrl + '/votes', vote)
     .done(function(response) {
       // ignore the response, show the next user
       self.getRandomUser();
@@ -63,9 +67,9 @@ Controller.prototype = {
   },
 
   renderForm: function(templateSelector) {
-    var source   = $(templateSelector).html();
-    var template = Handlebars.compile(source);
-    $('body').html(template);
+    var source   = $(templateSelector).html()
+    var template = Handlebars.compile(source)
+    $('body').html(template)
   }
 }
 

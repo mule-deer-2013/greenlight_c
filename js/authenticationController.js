@@ -56,10 +56,9 @@ AuthenticationController.prototype = {
       processData: false
     })
     .done(function(data) {
-      setCurrentUser(data.id)
+      self.setCurrentUser(data.id)
       $('.signupform').toggle()
-
-      self.getRandomUser()
+      $(document).trigger(globalEvents.signUp)
     })
     .fail(function(){
       console.log("FUCK!")
