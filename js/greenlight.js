@@ -25,18 +25,14 @@
 // //
 
 
-$(function() {
-  var controller = new Controller('http://localhost:3000');
-  if (localStorage['currentUser']) {
-    controller.getRandomUser();
-  } else {
-    var source   = $("#signup-template").html();
-    var template = Handlebars.compile(source);
-    $('body').append(template);
-  }
-});
+// ("#signup").on('click', function() { 
+//   var source   = $("#signup-template").html();
+//   var template = Handlebars.compile(source);
+//   $('body').append(template) 
+//   $("#profileform").on("submit", createUser);
+// });
 
-
+// // };
 // var signup = function() {
 //   $('#signup').toggle();
 //   var source   = $("#signup-template").html();
