@@ -14,15 +14,27 @@ Controller.prototype = {
   },
 
   vote: function(opinion) {
+    console.log('start of vote function');
     var self = this;
     var vote = new Object();
     vote['voted_on_id'] = $('.user').data('id');
     vote['voter_id'] = localStorage['currentUser'];
     vote['opinion'] = opinion;
-    $.post(this.baseUrl + '/votes', vote)
-    .done(function(response) {
-      // ignore the response, show the next user
-      self.getRandomUser();
+    $.post(this.baseUrl + 'votes', vote)
+    .done(function(data) {
+      console.log(data);
+      console.log("in the vote function");
+      console.log(data.status);
+      if (data.status === "yes")
+      {
+       console.log('you win');
+       self.render("#match-message-template", data.votee);
+      }
+    else
+      {
+        console.log('sorry try again');
+        self.getRandomUser();
+      }
     });
   },
 
@@ -91,7 +103,24 @@ Controller.prototype = {
     var source   = $(templateSelector).html();
     var template = Handlebars.compile(source);
     $('body').html(template);
+  },
+
+   matchMessage: function() {
+    console.log("you're in the match messaging");
+    var self = this;
+    var templateSelector = "#match-message-template";
+    $.ajax({url: self.baseUrl + '/users/random'})
+    .done(function(data) {
+      console.log('in the completed random');
+      console.log(data);
+      var user = new User(data);
+      self.render(templateSelector, user);
+       // getLocation();
+      // $('#greenbutton').on('click', voteOnProfile);
+    });
   }
+
+
 
 }
 
