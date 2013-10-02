@@ -11,10 +11,8 @@ Controller.prototype = {
     // $(document).on('submit', '#signinform', function() { self.signin() });
     $(document).on('click', '#green-button', function() { self.vote("yes") });
     $(document).on('click', '#red-button', function() { self.vote("no") });
-<<<<<<< HEAD
     $(document).on('submit', "#profileform", function(e) { self.signup(e) });
-=======
->>>>>>> master
+
   },
 
   vote: function(opinion) {
@@ -31,19 +29,19 @@ Controller.prototype = {
   },
 
   getRandomUser: function() {
-<<<<<<< HEAD
+
     console.log("in getRandomUser ");
 
     var self = this;
     var templateSelector = "#profile-template";
     $.ajax({ url: self.baseUrl + '/users/'+ localStorage['currentUser'] })
     .done(function(data) {
-<<<<<<< HEAD
+
       console.log(data);
       var user = new User(data);
       self.render(templateSelector, user);
       // $('#greenbutton').on('click', voteOnProfile); 
-      //getLocation()
+      getLocation()
     })
     .fail(function(data) {
       console.log (data);

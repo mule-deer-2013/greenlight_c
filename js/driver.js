@@ -2,7 +2,7 @@ $(document).ready(runApp)
 
 function runApp(){
   console.log('hi')
-  var testController = new Controller("http://localhost:3000/")
+  var testController = new Controller("http://localhost:3000")
 } 
 
 
