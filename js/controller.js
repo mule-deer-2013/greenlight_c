@@ -36,7 +36,7 @@ Controller.prototype = {
       console.log(data);
       var user = new User(data);
       self.render(templateSelector, user);
-       // getLocation();
+       getLocation();
       // $('#greenbutton').on('click', voteOnProfile);
     });
   },
