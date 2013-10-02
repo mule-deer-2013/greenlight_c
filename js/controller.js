@@ -41,12 +41,11 @@ Controller.prototype = {
     var self = this;
     var templateSelector = "#profile-template";
     $.ajax({ url: self.baseUrl + '/users/'+ localStorage['currentUser'] })
-    .done(function(data) {
-
+    .success(function(data) {
       console.log(data);
       var user = new User(data);
       self.render(templateSelector, user);
-      // $('#greenbutton').on('click', voteOnProfile); 
+      // $('#greenbutton').on('click', voteOnProfile);
       getLocation()
     })
     .fail(function(data) {
@@ -85,10 +84,10 @@ var onSuccess = function(position) {
 
 function onError(error) {
   // alert('please turn on your location settings for greenlight' );
-}
+};
 
 function getLocation(){
   navigator.geolocation.getCurrentPosition(onSuccess, onError);
-}
+};
 
 

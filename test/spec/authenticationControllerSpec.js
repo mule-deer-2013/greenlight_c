@@ -81,7 +81,7 @@ describe("authentication controller", function() {
 
         // this is the current output of `rake routes`:`
         // POST     /sessions(.:format)     sessions#create
-        expect(signinObj.url).toEqual(BASEURL+'sessions')
+        expect(signinObj.url).toEqual(BASEURL+'/sessions')
         expect(signinObj.type).toEqual("POST")
         expect(signinObj.data).toEqual(serializedFormData)
       })
