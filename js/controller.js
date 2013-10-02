@@ -1,17 +1,20 @@
-var Controller = function(baseUrl) {
-  this.baseUrl = baseUrl;
-  this.initialize();
+var Controller = function(baseUrl, authenticator) {
+  this.baseUrl = baseUrl
+  this.auth = authenticator
+  this.initialize()
 };
 
 Controller.prototype = {
   initialize: function() {
     var self = this;
-    $(document).on('submit', "#profileform", function(e) { self.signup(e) });
-    $(document).on('click', "#signup", function() { self.renderForm("#signup-template") });
-    // $(document).on('submit', '#signinform', function() { self.signin() });
     $(document).on('click', '#green-button', function() { self.vote("yes") });
     $(document).on('click', '#red-button', function() { self.vote("no") });
-    $(document).on('submit', "#profileform", function(e) { self.signup(e) });
+    $(document).on('click', "#signup", function() { self.renderForm("#signup-template") })
+    $(document).on('click', '#signin', function() { self.renderForm("#signin-template") })
+    $(document).on(globalEvents.logIn, function(){
+      console.log("i am responding to that event you fired")
+      self.getRandomUser()
+    })
 
   },
 
@@ -19,9 +22,9 @@ Controller.prototype = {
     var self = this;
     var vote = new Object();
     vote['voted_on_id'] = $('.user').data('id');
-    vote['voter_id'] = localStorage['currentUser'];
+    vote['voter_id'] = self.auth.getCurrentUser();
     vote['opinion'] = opinion;
-    $.post(this.baseUrl + '/votes', vote)
+    $.post(this.baseUrl + 'votes', vote)
     .done(function(response) {
       // ignore the response, show the next user
       self.getRandomUser();
@@ -29,7 +32,6 @@ Controller.prototype = {
   },
 
   getRandomUser: function() {
-
     console.log("in getRandomUser ");
 
     var self = this;
@@ -53,51 +55,11 @@ Controller.prototype = {
     });
   },
 
-  signup: function(e) {
-    console.log("get signup")
-    var self = this;
-
-    e.preventDefault();
-    var postData = new FormData($('form')[0]);
-    $.ajax({
-      url: this.baseUrl + '/users',
-      type: "POST",
-      data: postData,
-      cache: false,
-      contentType: false,
-      processData: false
-    })
-    .done(function(data) {
-      localStorage['currentUser']= data.id
-      $('.signupform').toggle();
-
-      self.getRandomUser();
-    });
-  },
-
-
-
-  // signin: function(e) {
-  //   e.preventDefault();
-  //   var self = this;
-  //   var postData = new formData();
-  //   $.ajax({
-  //     url: this.baseUrl + '/sessions',
-  //     type: "POST",
-  //     data: postData
-  //   })
-  //   .done(function(data){
-  //     localStorage['currentUser'] = data.id
-  //     $('.signinform').toggle();
-  //     self.getRandomUser();
-  //   })
-  // },
-
-
   render: function(templateSelector, data) {
     var source   = $(templateSelector).html();
     var template = Handlebars.compile(source);
     $('body').html(template(data));
+
   },
 
   renderForm: function(templateSelector) {
@@ -106,6 +68,7 @@ Controller.prototype = {
     $('body').html(template);
   }
 }
+
 
 
 var onSuccess = function(position) {
@@ -123,8 +86,5 @@ function onError(error) {
 function getLocation(){
   navigator.geolocation.getCurrentPosition(onSuccess, onError);
 }
-
-
-
 
 
