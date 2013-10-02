@@ -16,6 +16,10 @@ Controller.prototype = {
       console.log("i am responding to that event you fired")
       self.getRandomUser()
     })
+    $(document).on(globalEvents.signUp, function(){
+      console.log("i am responding to that event you fired in signUp")
+      self.getRandomUser()
+    })
   },
 
   vote: function(opinion) {
@@ -47,6 +51,23 @@ Controller.prototype = {
     console.log("event trigger is getting me into getRandomUser!")
     var self  = this;
     var templateSelector = "#profile-template";
+    $.ajax({url: self.baseUrl + '/users/random'})
+    .done(function(data) {
+      console.log('in the completed random');
+      console.log(data);
+      var user = new User(data);
+      self.render(templateSelector, user);
+       getLocation();
+      // $('#greenbutton').on('click', voteOnProfile);
+    });
+  },
+
+  signup: function(e) {
+    console.log("get signup")
+    var self = this;
+    e.preventDefault();
+    var postData = new FormData($('form')[0]);
+
     $.ajax({
       url: self.baseUrl + '/users/random',
       data: self.auth.getCurrentUser()

@@ -1,10 +1,12 @@
 $(document).ready(runApp)
 
 function runApp(){
+
   console.log('hi, runapp')
   var serverBase = "http://localhost:3000"
   globalEvents = {
-    logIn:"log-in"
+    logIn:"log-in",
+    signUp: "sign-up"
   }
   // var
    auth = new AuthenticationController(serverBase)
