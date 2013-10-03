@@ -66,12 +66,12 @@ Controller.prototype = {
       console.log('in the vote function');
        if (response.status === "yes")
       {
-      console.log('you win');
+      console.log('in vote - there is a match');
       self.render("#match-message-template", response.votee);
       }
     else
       {
-        console.log('sorry try again');
+        console.log('in vote - there is no match');
         self.getRandomUser();
     };
   });
@@ -80,21 +80,24 @@ Controller.prototype = {
   getRandomUser: function() {
     $('.signin-message').toggleClass('hidden')
     window.setTimeout(function() { $(".alert-success").alert('close'); }, 1500);
-    console.log("in getRandomUser ");
+    console.log("in getRandomUser before ajax call ");
 
     var self = this;
     var templateSelector = "#profile-template";
     $.ajax({ url: self.baseUrl + '/users/'+ localStorage['currentUser'] })
     .success(function(data) {
       console.log(data);
-      if(data.error) {
+      getLocation()
+      if(data.e) {
         self.renderNoMatch('#no-match-template')
+        console.log('we have ran out of matches')
       } else {
         var user = new User(data);
         self.render(templateSelector, user);
+      console.log('we still have matches')
         getLocation()
       }
-    });
+      })
   },
 
   renderNoMatch: function(templateSelector) {
@@ -117,7 +120,7 @@ Controller.prototype = {
     var template = Handlebars.compile(source)
     $('.format_box').remove()
     $('body').append(template)
-  }, 
+  },
 
   sendMessage: function(e) {
     e.preventDefault();
@@ -176,16 +179,17 @@ var onSuccess = function(position) {
   var coords = new Object();
   coords['latitude']= position.coords.latitude;
   coords['longitude'] = position.coords.longitude;
-  console.log(localStorage['currentUser'])
+  console.log(localStorage['currentUser'] + 'on success in location')
   $.post('http://localhost:3000/users/' +localStorage['currentUser'], coords)
 };
 
 function onError(error) {
-  //alert('please turn on your location settings for greenlight' );
+  alert('please turn on your location settings for greenlight' );
 };
 
 function getLocation(){
   navigator.geolocation.getCurrentPosition(onSuccess, onError);
+  console.log('getlocation is working')
 };
 
 
