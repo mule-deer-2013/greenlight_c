@@ -114,6 +114,7 @@
     </script>
 
     <script id="match-message-template" type="text/x-handlebars-template">
+    <div class="format_box">
     <div class="main-message-form" data-id={{id}}>
       <h1>Congrats! {{name}} gave you the Greenlight!</h1>
       Offer a place to meet! 
@@ -123,13 +124,14 @@
       </form>
       <button id="skip-button">Nevermind</button>
     </div>
+    </div>
   </script>
 
-    <script id="message-inbox-template" type="text/x-handlebars-template">
-    <div class="message-inbox" data-id={{id}}>
-
-      {{#list people}}{{message}}{{name}}{{/list}}
-      <button id="back-button">Nevermind</button>
+    <script id="conversation-template" type="text/x-handlebars-template">
+    <div class="format_box">
+    <div class="message-conversation" data-id={{id}}>
+    <br>
+    </div>
     </div>
   </script>
 
@@ -201,6 +203,7 @@
     <!-- our js -->
     <script src="js/driver.js"></script>
     <script src="js/user.js"></script>
+    <script src="js/message.js"></script>
     <script src="js/controller.js"></script>
     <script src="js/authenticationController.js"></script>
     <script src="js/greenlight.js"></script>

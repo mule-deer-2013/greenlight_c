@@ -130,7 +130,7 @@ Controller.prototype = {
     messageData['receiver_id'] = $('.main-message-form').data('id');
     messageData['user_id'] = localStorage['currentUser'];
     messageData['content'] = $('#message-form').serializeArray();
-    var templateSelector = "#message-inbox-template";
+    var templateSelector = "#conversation-template";
     var self = this;
     $.ajax({
       url: self.baseUrl + '/users/create_message',
@@ -140,12 +140,39 @@ Controller.prototype = {
     .done(function(data) {
       console.log('you have posted a message');
       console.log(data);
-      self.render
-      // self.render(templateSelector, data);
-      // $('#greenbutton').on('click', voteOnProfile);
+      self.renderForm(templateSelector);
+      _.each(data, function(messageObject) {
+          $('<p>' + messageObject.body + ' -' +'</p>').insertAfter('.message-conversation');
+      });
     });
   }
 }
+
+
+ // sendMessage: function(e) {
+ //    e.preventDefault();
+ //    console.log("in the send message function");
+ //    var messageData = new Object();
+ //    messageData['receiver_id'] = $('.main-message-form').data('id');
+ //    messageData['user_id'] = localStorage['currentUser'];
+ //    messageData['content'] = $('#message-form').serializeArray();
+ //    var templateSelector = "#conversation-template";
+ //    var self = this;
+ //    $.ajax({
+ //      url: self.baseUrl + '/users/create_message',
+ //      type: "POST",
+ //      data: messageData
+ //    })
+ //    .done(function(data) {
+ //      console.log('you have posted a message');
+ //      console.log(data);
+ //      _.each(data, function(messageObject) {
+ //        _.each(messageObject.body, function(message){
+ //          alert(message)
+ //        });
+ //      });
+ //    });
+ //  }
 
 
 
