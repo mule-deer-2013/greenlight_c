@@ -117,6 +117,26 @@
       </div>
     </script>
 
+    <script id="match-message-template" type="text/x-handlebars-template">
+    <div class="main-message-form" data-id={{id}}>
+      <h1>Congrats! {{name}} gave you the Greenlight!</h1>
+      Offer a place to meet! 
+      <form id="message-form"> 
+        <textarea rows="4" cols="50" name="message"></textarea><br>
+        <input type="submit" id="send-message-button">
+      </form>
+      <button id="skip-button">Nevermind</button>
+    </div>
+  </script>
+
+    <script id="message-inbox-template" type="text/x-handlebars-template">
+    <div class="message-inbox" data-id={{id}}>
+
+      {{#list people}}{{message}}{{name}}{{/list}}
+      <button id="back-button">Nevermind</button>
+    </div>
+  </script>
+
 
 
   </head>
