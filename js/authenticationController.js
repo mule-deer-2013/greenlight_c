@@ -14,6 +14,7 @@ AuthenticationController.prototype = {
     localStorage.clear()
   },
   setCurrentUser:function(current_user){
+    console.log(current_user)
     localStorage['currentUser'] = current_user
   },
 
@@ -32,6 +33,9 @@ AuthenticationController.prototype = {
       self.setCurrentUser(data.id)
       $('.signinform').toggle()
       $(document).trigger(globalEvents.logIn)
+    })
+    .fail(function(xhr) {
+      alert(xhr.responseJSON.error);
     })
   },
   buildSigninRequestObject:function(){
@@ -58,12 +62,14 @@ AuthenticationController.prototype = {
       processData: false
     })
     .done(function(data) {
+      console.log(data.id)
       self.setCurrentUser(data.id)
       $('.signupform').toggle()
       $(document).trigger(globalEvents.signUp)
     })
     .fail(function(){
-      console.log('signup failed')
+
+      console.log("Authentication failed on signup")
     })
   },
 

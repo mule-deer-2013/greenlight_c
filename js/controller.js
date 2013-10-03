@@ -74,39 +74,35 @@ Controller.prototype = {
     $.ajax({ url: self.baseUrl + '/users/'+ localStorage['currentUser'] })
     .success(function(data) {
       console.log(data);
-      var user = new User(data);
-      self.render(templateSelector, user);
-      getLocation()
-    })
-    .fail(function(data) {
-      console.log (data);
-      console.log('getRandomUser failed (check if localstorage recognizes a current user');
-      var templateSelector = "#no-match-template";
-      var noMatch = new Object();
-      noMatch['message'] = 'Currently, there are no matches. Please try again later.'
-      self.render(templateSelector, noMatch);
+      if(data.error) {
+        self.renderNoMatch('#no-match-template')
+      } else {
+        var user = new User(data);
+        self.render(templateSelector, user);
+        getLocation()
+      }
     });
   },
 
-  render: function(templateSelector, data) {
+  renderNoMatch: function(templateSelector) {
     var source   = $(templateSelector).html();
     var template = Handlebars.compile(source);
-    $('.format_box').hide()
-    $('body').append(template(data));
+    $('.format_box').remove()
+    $('body').append(template);
 
   },
 
   render: function(templateSelector, data) {
     var source   = $(templateSelector).html();
     var template = Handlebars.compile(source);
-    $('.format_box').hide()
+    $('.format_box').remove();
     $('body').append(template(data));
 
   },
   renderForm: function(templateSelector) {
     var source   = $(templateSelector).html()
     var template = Handlebars.compile(source)
-    $('.format_box').hide()
+    $('.format_box').remove()
     $('body').append(template)
   }
 }
