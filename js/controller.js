@@ -1,6 +1,7 @@
 globalEvents = {
   logIn:"log-in",
-  signUp: "sign-up"
+  signUp: "sign-up",
+  logOut: "log-out"
 }
 
 var Controller = function(baseUrl, authenticator) {
@@ -12,22 +13,45 @@ var Controller = function(baseUrl, authenticator) {
 Controller.prototype = {
   initialize: function() {
     var self = this;
+    self.showAppropriateNavBar()
     $(document).on('click', '#green-button', function() { self.vote("yes") })
     $(document).on('click', '#red-button', function() { self.vote("no") })
-    $(document).on('click', "#signup", function() { self.renderForm("#signup-template") })
-    $(document).on('click', "#signin", function() { self.renderForm("#signin-template") })
     $(document).on('submit', '#message-form', function(e) { self.sendMessage(e) })
+    $(document).on('click', "#signup", function() {
+      self.renderForm("#signup-template")
+      self.showAppropriateNavBar()
+    })
+    $(document).on('click', "#signin", function() {
+      self.renderForm("#signin-template")
+      self.showAppropriateNavBar()
+    })
     $(document).on(globalEvents.logIn, function() {
       console.log("i am responding to that event you fired")
       self.getRandomUser()
+      self.showAppropriateNavBar()
     })
     $(document).on(globalEvents.signUp, function() {
       console.log("i am responding to that event you fired in signUp")
       self.getRandomUser()
+      self.showAppropriateNavBar()
+    })
+    $(document).on(globalEvents.logOut, function() {
+      console.log("i am responding to that event you fired in logOut")
+      self.showAppropriateNavBar()
     })
 
   },
-
+  showAppropriateNavBar:function () {
+    if(this.auth.isSignedIn()){
+      $('#logout').removeClass("hidden")
+      $('#signup').addClass("hidden")
+      $('#signin').addClass("hidden")
+    }else{
+      $('#signup').removeClass("hidden")
+      $('#signin').removeClass("hidden")
+      $('#logout').addClass("hidden")
+    }
+  },
   vote: function(opinion) {
     console.log('top of vote');
     var self = this;
@@ -69,7 +93,7 @@ Controller.prototype = {
     })
     .fail(function(data) {
       console.log (data);
-      console.log('something failed');
+      console.log('getRandomUser failed (check if localstorage recognizes a current user');
       var templateSelector = "#no-match-template";
       var noMatch = new Object();
       noMatch['message'] = 'Currently, there are no matches. Please try again later.'
@@ -85,6 +109,13 @@ Controller.prototype = {
 
   },
 
+  render: function(templateSelector, data) {
+    var source   = $(templateSelector).html();
+    var template = Handlebars.compile(source);
+    $('.format_box').hide()
+    $('body').append(template(data));
+
+  },
   renderForm: function(templateSelector) {
     var source   = $(templateSelector).html()
     var template = Handlebars.compile(source)
@@ -127,7 +158,7 @@ var onSuccess = function(position) {
 };
 
 function onError(error) {
-  // alert('please turn on your location settings for greenlight' );
+  //alert('please turn on your location settings for greenlight' );
 };
 
 function getLocation(){
