@@ -28,6 +28,9 @@ AuthenticationController.prototype = {
     .success(function(data){
       self.setCurrentUser(data.id)
       $('.signinform').toggle()
+      $('#signup').hide()
+      $('#signin').hide()
+      $('.btn-danger').toggleClass('hidden')
       $(document).trigger(globalEvents.logIn)
     })
   },
@@ -58,6 +61,9 @@ AuthenticationController.prototype = {
     .done(function(data) {
       self.setCurrentUser(data.id)
       $('.signupform').toggle()
+      $('#signup').hide()
+      $('#signin').hide()
+      $('.btn-danger').toggleClass('hidden')
       $(document).trigger(globalEvents.signUp)
     })
     .fail(function(){
@@ -69,11 +75,15 @@ AuthenticationController.prototype = {
     e.preventDefault()
     var self = this
     $.ajax({
-      url: self.baseUrl + '/sessions/' + getCurrentUser(),
+      url: self.baseUrl + '/sessions/' + self.getCurrentUser(),
       type: "POST"
     })
     .done(function(){
       localStorage.clear()
+      $('.format_box').hide()
+      $('.btn-danger').hide()
+      $('#signup').show()
+      $('#signin').show()
     })
   }
 }

@@ -50,7 +50,7 @@ Controller.prototype = {
       console.log(data);
       var user = new User(data);
       self.render(templateSelector, user);
-      // $('#greenbutton').on('click', voteOnProfile);
+      $('#greenbutton').on('click', voteOnProfile);
       getLocation()
     })
     .fail(function(data) {
@@ -66,14 +66,16 @@ Controller.prototype = {
   render: function(templateSelector, data) {
     var source   = $(templateSelector).html();
     var template = Handlebars.compile(source);
-    $('body').html(template(data));
+    $('.format_box').hide()
+    $('body').append(template(data));
 
   },
 
   renderForm: function(templateSelector) {
     var source   = $(templateSelector).html()
     var template = Handlebars.compile(source)
-    $('body').html(template)
+    $('.format_box').hide()
+    $('body').append(template)
   }
 }
 
