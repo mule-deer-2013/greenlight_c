@@ -16,6 +16,7 @@ Controller.prototype = {
     self.showAppropriateNavBar()
     $(document).on('click', '#green-button', function() { self.vote("yes") })
     $(document).on('click', '#red-button', function() { self.vote("no") })
+    $(document).on('submit', '#message-form', function(e) { self.sendMessage(e) })
     $(document).on('click', "#signup", function() {
       self.renderForm("#signup-template")
       self.showAppropriateNavBar()
@@ -52,6 +53,7 @@ Controller.prototype = {
     }
   },
   vote: function(opinion) {
+    console.log('top of vote');
     var self = this;
     var vote = new Object();
     vote['voted_on_id'] = $('.user').data('id');
@@ -60,9 +62,20 @@ Controller.prototype = {
     $.post(this.baseUrl + '/votes', vote)
     .done(function(response) {
       // ignore the response, show the next user
-      self.getRandomUser();
-    });
-  },
+      console.log(response);
+      console.log('in the vote function');
+       if (response.status === "yes")
+      {
+      console.log('you win');
+      self.render("#match-message-template", response.votee);
+      }
+    else
+      {
+        console.log('sorry try again');
+        self.getRandomUser();
+    };
+  });
+},
 
   getRandomUser: function() {
     $('.signin-message').toggleClass('hidden')
@@ -104,8 +117,58 @@ Controller.prototype = {
     var template = Handlebars.compile(source)
     $('.format_box').remove()
     $('body').append(template)
+  }, 
+
+  sendMessage: function(e) {
+    e.preventDefault();
+    console.log("in the send message function");
+    var messageData = new Object();
+    messageData['receiver_id'] = $('.main-message-form').data('id');
+    messageData['user_id'] = localStorage['currentUser'];
+    messageData['content'] = $('#message-form').serializeArray();
+    var templateSelector = "#conversation-template";
+    var self = this;
+    $.ajax({
+      url: self.baseUrl + '/users/create_message',
+      type: "POST",
+      data: messageData
+    })
+    .done(function(data) {
+      console.log('you have posted a message');
+      console.log(data);
+      self.renderForm(templateSelector);
+      _.each(data, function(messageObject) {
+          $('<p>' + messageObject.body + ' -' +'</p>').insertAfter('.message-conversation');
+      });
+    });
   }
 }
+
+
+ // sendMessage: function(e) {
+ //    e.preventDefault();
+ //    console.log("in the send message function");
+ //    var messageData = new Object();
+ //    messageData['receiver_id'] = $('.main-message-form').data('id');
+ //    messageData['user_id'] = localStorage['currentUser'];
+ //    messageData['content'] = $('#message-form').serializeArray();
+ //    var templateSelector = "#conversation-template";
+ //    var self = this;
+ //    $.ajax({
+ //      url: self.baseUrl + '/users/create_message',
+ //      type: "POST",
+ //      data: messageData
+ //    })
+ //    .done(function(data) {
+ //      console.log('you have posted a message');
+ //      console.log(data);
+ //      _.each(data, function(messageObject) {
+ //        _.each(messageObject.body, function(message){
+ //          alert(message)
+ //        });
+ //      });
+ //    });
+ //  }
 
 
 

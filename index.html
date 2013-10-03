@@ -115,6 +115,28 @@
       </div>
     </script>
 
+    <script id="match-message-template" type="text/x-handlebars-template">
+    <div class="format_box">
+    <div class="main-message-form" data-id={{id}}>
+      <h1>Congrats! {{name}} gave you the Greenlight!</h1>
+      Offer a place to meet! 
+      <form id="message-form"> 
+        <textarea rows="4" cols="50" name="message"></textarea><br>
+        <input type="submit" id="send-message-button">
+      </form>
+      <button id="skip-button">Nevermind</button>
+    </div>
+    </div>
+  </script>
+
+    <script id="conversation-template" type="text/x-handlebars-template">
+    <div class="format_box">
+    <div class="message-conversation" data-id={{id}}>
+    <br>
+    </div>
+    </div>
+  </script>
+
 
 
   </head>
@@ -183,6 +205,7 @@
     <!-- our js -->
     <script src="js/driver.js"></script>
     <script src="js/user.js"></script>
+    <script src="js/message.js"></script>
     <script src="js/controller.js"></script>
     <script src="js/authenticationController.js"></script>
     <script src="js/greenlight.js"></script>
