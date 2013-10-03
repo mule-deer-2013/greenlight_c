@@ -67,7 +67,9 @@ Controller.prototype = {
        if (response.status === "yes")
       {
       console.log('you win');
-      self.render("#match-message-template", response.votee);
+      console.log(response.status)
+      var user = new User(response);
+      self.render("#match-message-template", user);
       }
     else
       {
@@ -136,7 +138,7 @@ Controller.prototype = {
     .done(function(data) {
       console.log('you have posted a message');
       console.log(data);
-      self.renderForm(templateSelector);
+      self.render(templateSelector, data[0].received_messageable_id);
       _.each(data, function(messageObject) {
           $('<p>' + messageObject.body + ' -' +'</p>').insertAfter('.message-conversation');
       });

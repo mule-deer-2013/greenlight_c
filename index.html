@@ -119,6 +119,7 @@
     <div class="format_box">
     <div class="main-message-form" data-id={{id}}>
       <h1>Congrats! {{name}} gave you the Greenlight!</h1>
+      <img src={{photo}}></li>
       Offer a place to meet! 
       <form id="message-form"> 
         <textarea rows="4" cols="50" name="message"></textarea><br>
@@ -134,6 +135,11 @@
     <div class="message-conversation" data-id={{id}}>
     <br>
     </div>
+    <form id="message-form"> 
+        <textarea rows="4" cols="50" name="message"></textarea><br>
+        <input type="submit" value="Send" id="send-message-button">
+      </form>
+    <button>Actually...nevermind</button>
     </div>
   </script>
 
