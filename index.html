@@ -1,4 +1,4 @@
-<html>
+  <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,13 +41,14 @@
         Interested In:  <br><input type="checkbox" name="sex_preference" value="men">Men<br>
                 <input type="checkbox" name="sex_preference" value="women">Women<br>
         Tagline: <input  type="text"name="tagline"><br>
-        Upload photo: <input type="file" name="photo" >
+
+        Upload photo: <input type="file" name="photo">
+
 
         <input type="submit" id="submit">
       </form>
     </div>
   </script>
-
   
     <script id="match-message-template" type="text/x-handlebars-template">
     <div class="main-message-form" data-id={{id}}>
@@ -71,16 +72,40 @@
   </script>
 
 
+  <script id="no-match-template" type="text/x-handlebars-template">
+    <div class="no-match-message">
+      <h1>Give Them The Greenlight?</h1>
+        <div class="data" data-id={{id}}>
+          <h3>{{message}}</h3>
+        </div>
+          <button id="green-button">Greenlight</button>
+          <button id="red-button">Pump the breaks</button>
+    </div>
+  </script>
+
+  <script id="profile-template" type="text/x-handlebars-template">
+    <div class="profile">
+      <h1>Give Them The Greenlight?</h1>
+        <div class="user" data-id={{id}}>
+          <ul>
+            <li><img src={{photo}}></li>
+            <li>{{name}}</li>
+            <li>{{age}}</li>
+            <li>{{tagline}}</li>
+          </ul>
+        </div>
+          <button id="green-button">Greenlight</button>
+          <button id="red-button">Pump the breaks</button>
+  </script>
 
   <script id="signin-template" type="text/x-handlebars-template">
-      <div class="signinform">
-        <form id="signin-form">
-          Email:<input type="email" name="email"><br>
-          Password:<input type="password" name="password"><br>
-          <input type="submit" id="submit">
-        </form>
-      </div>
-
+    <div class="signinform">
+      <form id="signin-form">
+        Email:<input type="email" name="email"><br>
+        Password:<input type="password" name="password"><br>
+        <input type="submit" id="submit">
+      </form>
+    </div>
   </script>
 
   <script id="profile-template" type="text/x-handlebars-template">

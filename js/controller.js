@@ -1,3 +1,8 @@
+globalEvents = {
+  logIn:"log-in",
+  signUp: "sign-up"
+}
+
 var Controller = function(baseUrl, authenticator) {
   this.baseUrl = baseUrl
   this.auth = authenticator
@@ -11,15 +16,16 @@ Controller.prototype = {
     $(document).on('click', '#red-button', function() { self.vote("no") });
     $(document).on('submit', '#send-message-button', function(e) { self.sendMessage(e) });
     $(document).on('click', "#signup", function() { self.renderForm("#signup-template") })
-    $(document).on('click', '#signin', function() { self.renderForm("#signin-template") })
-    $(document).on(globalEvents.logIn, function(){
+    $(document).on('click', "#signin", function() { self.renderForm("#signin-template") })
+    $(document).on(globalEvents.logIn, function() {
       console.log("i am responding to that event you fired")
       self.getRandomUser()
     })
-    $(document).on(globalEvents.signUp, function(){
+    $(document).on(globalEvents.signUp, function() {
       console.log("i am responding to that event you fired in signUp")
       self.getRandomUser()
     })
+
   },
 
   vote: function(opinion) {
@@ -29,7 +35,7 @@ Controller.prototype = {
     vote['voted_on_id'] = $('.user').data('id');
     vote['voter_id'] = self.auth.getCurrentUser();
     vote['opinion'] = opinion;
-    $.post(this.baseUrl + 'votes', vote)
+    $.post(this.baseUrl + '/votes', vote)
     .done(function(data) {
       console.log(data);
       console.log("in the vote function");
@@ -48,35 +54,25 @@ Controller.prototype = {
   },
 
   getRandomUser: function() {
-    console.log("event trigger is getting me into getRandomUser!")
-    var self  = this;
+    console.log("in getRandomUser ");
+
+    var self = this;
     var templateSelector = "#profile-template";
-    $.ajax({url: self.baseUrl + '/users/random'})
-    .done(function(data) {
-      console.log('in the completed random');
+    $.ajax({ url: self.baseUrl + '/users/'+ localStorage['currentUser'] })
+    .success(function(data) {
       console.log(data);
       var user = new User(data);
       self.render(templateSelector, user);
-       getLocation();
       // $('#greenbutton').on('click', voteOnProfile);
-    });
-  },
-
-  signup: function(e) {
-    console.log("get signup")
-    var self = this;
-    e.preventDefault();
-    var postData = new FormData($('form')[0]);
-    $.ajax({
-      url: self.baseUrl + '/users/random',
-      data: self.auth.getCurrentUser()
+      getLocation()
     })
-    .done(function(response) {
-      console.log("event trigger is getting me into getRandomUser ajax!")
-      // var user = new User(response);
-      // self.render(templateSelector, user);
-       getLocation();
-      // $('#greenbutton').on('click', voteOnProfile);
+    .fail(function(data) {
+      console.log (data);
+      console.log('something failed');
+      var templateSelector = "#no-match-template";
+      var noMatch = new Object();
+      noMatch['message'] = 'Currently, there are no matches. Please try again later.'
+      self.render(templateSelector, noMatch);
     });
   },
 
@@ -129,10 +125,10 @@ var onSuccess = function(position) {
 
 function onError(error) {
   // alert('please turn on your location settings for greenlight' );
-}
+};
 
 function getLocation(){
   navigator.geolocation.getCurrentPosition(onSuccess, onError);
-}
+};
 
 
