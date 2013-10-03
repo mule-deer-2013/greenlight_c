@@ -13,9 +13,9 @@ function runApp(){
 
 
 
-// //testing, debug helpers!
+// autofill sign-up by pressing "\"
 $(document).on("keydown", function(e){
-  if(e.keyCode == 220){ //press "\" if you want to autofill
+  if(e.keyCode == 220){
     $($("#profileform").children()[0]).val("asdf"+new Date().getTime())
     $($("#profileform").children()[2]).val("asdf"+new Date().getTime()+"@asdf.com")
     $($("#profileform").children()[4]).val("123")

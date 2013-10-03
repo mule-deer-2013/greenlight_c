@@ -41,6 +41,8 @@ Controller.prototype = {
   },
 
   getRandomUser: function() {
+    $('.signin-message').toggleClass('hidden')
+    window.setTimeout(function() { $(".alert-success").alert('close'); }, 1500);
     console.log("in getRandomUser ");
 
     var self = this;

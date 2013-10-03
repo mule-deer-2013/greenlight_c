@@ -84,6 +84,8 @@ AuthenticationController.prototype = {
       $('.btn-danger').hide()
       $('#signup').show()
       $('#signin').show()
+      $('.logout-message').toggleClass('hidden')
+      window.setTimeout(function() { $(".alert-danger").alert('close'); }, 1500);
     })
   }
 }
