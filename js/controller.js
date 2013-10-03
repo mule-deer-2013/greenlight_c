@@ -96,6 +96,13 @@ Controller.prototype = {
 
   },
 
+  render: function(templateSelector, data) {
+    var source   = $(templateSelector).html();
+    var template = Handlebars.compile(source);
+    $('.format_box').hide()
+    $('body').append(template(data));
+
+  },
   renderForm: function(templateSelector) {
     var source   = $(templateSelector).html()
     var template = Handlebars.compile(source)
