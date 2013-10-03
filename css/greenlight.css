@@ -1,8 +1,8 @@
 body {
-  background-image: url('http://i.imgur.com/zgMWMI6.jpg');
+  background-image: url('http://i.imgur.com/ZNZHedY.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: black;
+
 }
 
 ul li {
@@ -30,6 +30,7 @@ ul li {
   min-width: 250px;
   margin: 0px auto;
   margin-top: 10%;
+  background-color:rgba(0,0,0,0.7);
 }
 
 .navbar {
