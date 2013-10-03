@@ -1,10 +1,11 @@
-  <html>
+<html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/greenlight.css" />
+    <link href='http://fonts.googleapis.com/css?family=Snippet|Poiret+One|Raleway+Dots|Kavoon|Stardos+Stencil' rel='stylesheet' type='text/css'>
 
 
     <title>Green Light</title>
@@ -82,7 +83,8 @@
               </div>
               <button id="green-button">Greenlight</button>
               <button id="red-button">Pump the breaks</button>
-      </div>
+          </div>
+        </div>
     </script>
 
     <script id="signin-template" type="text/x-handlebars-template">
@@ -119,82 +121,90 @@
 
   </head>
   <body>
+    <div class="wrapper">
+      <div id="main">
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+              <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+              <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 
-    <div class="navbar">
-      <div class="navbar-inner">
-        <div class="container">
-          <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </a>
 
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
+              <!-- Be sure to leave the brand out there if you want it shown -->
+              <a class="brand" href="#">GreenLight</a>
 
-          <!-- Be sure to leave the brand out there if you want it shown -->
-          <a class="brand" href="#">GreenLight</a>
+              <!-- Everything you want hidden at 940px or less, place within here -->
+              <div class="nav-collapse collapse">
+                <button class="btn btn-success" id="signup">Sign Up</button>
+                <button class="btn btn-success" id="signin">Sign In</button>
+                <button class="btn btn-danger hidden" id="logout">Log Out</button>
+                <!-- .nav, .navbar-search, .navbar-form, etc -->
+              </div>
 
-          <!-- Everything you want hidden at 940px or less, place within here -->
-          <div class="nav-collapse collapse">
-            <button class="btn btn-success" id="signup">Sign Up</button>
-            <button class="btn btn-success" id="signin">Sign In</button>
-            <button class="btn btn-danger hidden" id="logout">Log Out</button>
-            <!-- .nav, .navbar-search, .navbar-form, etc -->
+            </div>
           </div>
+        </div>
 
+      <div class="logout-message hidden">
+        <div class="alert alert-danger">
+           <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Logout Successful</strong>
         </div>
       </div>
-    </div>
-    <div class="logout-message hidden">
-      <div class="alert alert-danger">
-         <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <strong>Logout Successful</strong>
+
+      <div class="fail-message hidden">
+        <div class="alert alert-danger">
+           <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Something went wrong! Please try again</strong>
+        </div>
       </div>
-    </div>
 
-    <div class="fail-message hidden">
-      <div class="alert alert-danger">
-         <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <strong>Something went wrong! Please try again</strong>
+      <div class="signin-message hidden">
+        <div class="alert alert-success">
+           <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Login Successful! </strong>
+            Welcome back!
+        </div>
       </div>
-    </div>
 
-    <div class="signin-message hidden">
-      <div class="alert alert-success">
-         <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <strong>Login Successful! </strong>
-          Welcome back!
+      <div class="format_box">
+        <h4>ASDFJKL;</h4>
       </div>
+
+      <!-- jquery library -->
+      <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+      <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+      <!--  bootstrap js -->
+      <script src="bootstrap/js/bootstrap.min.js"></script>
+
+
+      <!-- handlebars js -->
+      <script src="js/lib/handlebars.js"></script>
+      <script src="js/lib/underscore.js"></script>
+
+      <!-- our js -->
+      <script src="js/driver.js"></script>
+      <script src="js/user.js"></script>
+      <script src="js/controller.js"></script>
+      <script src="js/authenticationController.js"></script>
+      <script src="js/greenlight.js"></script>
+
+      <!-- // <script src="http://code.google.com/apis/gears/gears_init.js" type="text/javascript"></script> -->
+      <!-- <script src="geo.js" type="text/javascript" ></script> -->
+    </div>
+  </div>
+
+
+    <div class="footer">
+
     </div>
 
-    <div class="format_box">
-      <h4>Find out who's single.</h4>
-      <h4>Go mingle.</h4>
-      <h3>Get the greenlight.</h3>
-    </div>
-
-    <!-- jquery library -->
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-
-    <!--  bootstrap js -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-
-
-    <!-- handlebars js -->
-    <script src="js/lib/handlebars.js"></script>
-    <script src="js/lib/underscore.js"></script>
-
-    <!-- our js -->
-    <script src="js/driver.js"></script>
-    <script src="js/user.js"></script>
-    <script src="js/controller.js"></script>
-    <script src="js/authenticationController.js"></script>
-    <script src="js/greenlight.js"></script>
-
-    <!-- // <script src="http://code.google.com/apis/gears/gears_init.js" type="text/javascript"></script> -->
-    <!-- <script src="geo.js" type="text/javascript" ></script> -->
 
   </body>
-  </html>
+</html>
