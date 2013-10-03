@@ -67,15 +67,14 @@ Controller.prototype = {
     var self = this;
     e.preventDefault();
     var postData = new FormData($('form')[0]);
-
     $.ajax({
       url: self.baseUrl + '/users/random',
       data: self.auth.getCurrentUser()
     })
     .done(function(response) {
       console.log("event trigger is getting me into getRandomUser ajax!")
-      var user = new User(response);
-      self.render(templateSelector, user);
+      // var user = new User(response);
+      // self.render(templateSelector, user);
        getLocation();
       // $('#greenbutton').on('click', voteOnProfile);
     });
