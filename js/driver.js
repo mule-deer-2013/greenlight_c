@@ -10,8 +10,6 @@ function runApp(){
 }
 
 
-
-
 // autofill sign-up by pressing "\"
 $(document).on("keydown", function(e){
   if(e.keyCode == 220){

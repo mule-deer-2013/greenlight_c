@@ -50,6 +50,7 @@ ul li {
   margin-top: 10%;
   margin-bottom: 10%;
   font-family: Arial, Helvetica, sans-serif;
+  word-wrap: break-word;
 }
 
 .footer {
