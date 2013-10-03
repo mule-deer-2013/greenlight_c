@@ -87,7 +87,7 @@ Controller.prototype = {
   renderNoMatch: function(templateSelector) {
     var source   = $(templateSelector).html();
     var template = Handlebars.compile(source);
-    $('.format_box').hide()
+    $('.format_box').remove()
     $('body').append(template);
 
   },
@@ -95,14 +95,14 @@ Controller.prototype = {
   render: function(templateSelector, data) {
     var source   = $(templateSelector).html();
     var template = Handlebars.compile(source);
-    $('.format_box').hide()
+    $('.format_box').remove();
     $('body').append(template(data));
 
   },
   renderForm: function(templateSelector) {
     var source   = $(templateSelector).html()
     var template = Handlebars.compile(source)
-    $('.format_box').hide()
+    $('.format_box').remove()
     $('body').append(template)
   }
 }

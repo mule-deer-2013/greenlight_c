@@ -34,6 +34,9 @@ AuthenticationController.prototype = {
       $('.signinform').toggle()
       $(document).trigger(globalEvents.logIn)
     })
+    .fail(function(xhr) {
+      alert(xhr.responseJSON.error);
+    })
   },
   buildSigninRequestObject:function(){
     var self = this
