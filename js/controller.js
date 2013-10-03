@@ -50,18 +50,14 @@ Controller.prototype = {
     $.ajax({ url: self.baseUrl + '/users/'+ localStorage['currentUser'] })
     .success(function(data) {
       console.log(data);
-      var user = new User(data);
-      self.render(templateSelector, user);
-      $('#greenbutton').on('click', voteOnProfile);
-      getLocation()
-    })
-    .fail(function(data) {
-      console.log (data);
-      console.log('something failed');
-      var templateSelector = "#no-match-template";
-      var noMatch = new Object();
-      noMatch['message'] = 'Currently, there are no matches. Please try again later.'
-      self.render(templateSelector, noMatch);
+      if (typeof data === 'string') {
+        var templateSelector = "#no-match-template";
+        self.renderNoMatch(templateSelector, data)
+      }else {
+        var user = new User(data);
+        self.render(templateSelector, user);
+        getLocation()
+      }
     });
   },
 
@@ -73,6 +69,13 @@ Controller.prototype = {
 
   },
 
+  render: function(templateSelector, data) {
+    var source   = $(templateSelector).html();
+    var template = Handlebars.compile(source);
+    $('.format_box').hide()
+    $('body').append(template(data));
+
+  },
   renderForm: function(templateSelector) {
     var source   = $(templateSelector).html()
     var template = Handlebars.compile(source)

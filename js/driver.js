@@ -4,7 +4,6 @@ function runApp(){
 
   console.log('hi, runapp')
   var serverBase = "http://localhost:3000"
-
   // var
    auth = new AuthenticationController(serverBase)
   var testController = new Controller(serverBase, auth)
