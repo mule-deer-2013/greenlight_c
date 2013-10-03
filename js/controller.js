@@ -1,3 +1,8 @@
+globalEvents = {
+  logIn:"log-in",
+  signUp: "sign-up"
+}
+
 var Controller = function(baseUrl, authenticator) {
   this.baseUrl = baseUrl
   this.auth = authenticator
