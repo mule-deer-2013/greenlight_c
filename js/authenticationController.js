@@ -14,6 +14,7 @@ AuthenticationController.prototype = {
     localStorage.clear()
   },
   setCurrentUser:function(current_user){
+    console.log(current_user)
     localStorage['currentUser'] = current_user
   },
 
@@ -67,7 +68,7 @@ AuthenticationController.prototype = {
       $(document).trigger(globalEvents.signUp)
     })
     .fail(function(){
-      console.log("FUCK!")
+      console.log("Authentication failed on signup")
     })
   },
 

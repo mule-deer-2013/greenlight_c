@@ -50,10 +50,10 @@ Controller.prototype = {
     $.ajax({ url: self.baseUrl + '/users/'+ localStorage['currentUser'] })
     .success(function(data) {
       console.log(data);
-      if (typeof data === 'string') {
-        var templateSelector = "#no-match-template";
-        self.renderNoMatch(templateSelector, data)
-      }else {
+      // if (typeof data == 'string') {
+      //   var templateSelector = "#no-match-template";
+      //   self.renderNoMatch(templateSelector, data)
+      // }else {
         var user = new User(data);
         self.render(templateSelector, user);
         getLocation()
