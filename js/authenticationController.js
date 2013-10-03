@@ -20,7 +20,10 @@ AuthenticationController.prototype = {
   getCurrentUser:function(){
     return localStorage['currentUser']
   },
-
+  isSignedIn:function(){
+    var self = this
+    return (self.getCurrentUser() != undefined)
+  },
   signin: function(e) {
     e.preventDefault()
     var self = this
@@ -28,9 +31,6 @@ AuthenticationController.prototype = {
     .success(function(data){
       self.setCurrentUser(data.id)
       $('.signinform').toggle()
-      $('#signup').hide()
-      $('#signin').hide()
-      $('.btn-danger').toggleClass('hidden')
       $(document).trigger(globalEvents.logIn)
     })
   },
@@ -50,7 +50,6 @@ AuthenticationController.prototype = {
     var self = this
     var postData = new FormData($('form')[0])
     $.ajax({
-      // shouldn't "this" be "self" instead?
       url: this.baseUrl + '/users',
       type: "POST",
       data: postData,
@@ -61,13 +60,10 @@ AuthenticationController.prototype = {
     .done(function(data) {
       self.setCurrentUser(data.id)
       $('.signupform').toggle()
-      $('#signup').hide()
-      $('#signin').hide()
-      $('.btn-danger').toggleClass('hidden')
       $(document).trigger(globalEvents.signUp)
     })
     .fail(function(){
-      console.log("FUCK!")
+      console.log('signup failed')
     })
   },
 
@@ -81,10 +77,8 @@ AuthenticationController.prototype = {
     .done(function(){
       localStorage.clear()
       $('.format_box').hide()
-      $('.btn-danger').hide()
-      $('#signup').show()
-      $('#signin').show()
       $('.logout-message').toggleClass('hidden')
+      $(document).trigger(globalEvents.logOut)
       window.setTimeout(function() { $(".alert-danger").alert('close'); }, 1500);
     })
   }

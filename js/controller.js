@@ -1,6 +1,7 @@
 globalEvents = {
   logIn:"log-in",
-  signUp: "sign-up"
+  signUp: "sign-up",
+  logOut: "log-out"
 }
 
 var Controller = function(baseUrl, authenticator) {
@@ -12,21 +13,44 @@ var Controller = function(baseUrl, authenticator) {
 Controller.prototype = {
   initialize: function() {
     var self = this;
+    self.showAppropriateNavBar()
     $(document).on('click', '#green-button', function() { self.vote("yes") })
     $(document).on('click', '#red-button', function() { self.vote("no") })
-    $(document).on('click', "#signup", function() { self.renderForm("#signup-template") })
-    $(document).on('click', "#signin", function() { self.renderForm("#signin-template") })
+    $(document).on('click', "#signup", function() {
+      self.renderForm("#signup-template")
+      self.showAppropriateNavBar()
+    })
+    $(document).on('click', "#signin", function() {
+      self.renderForm("#signin-template")
+      self.showAppropriateNavBar()
+    })
     $(document).on(globalEvents.logIn, function() {
       console.log("i am responding to that event you fired")
       self.getRandomUser()
+      self.showAppropriateNavBar()
     })
     $(document).on(globalEvents.signUp, function() {
       console.log("i am responding to that event you fired in signUp")
       self.getRandomUser()
+      self.showAppropriateNavBar()
+    })
+    $(document).on(globalEvents.logOut, function() {
+      console.log("i am responding to that event you fired in logOut")
+      self.showAppropriateNavBar()
     })
 
   },
-
+  showAppropriateNavBar:function () {
+    if(this.auth.isSignedIn()){
+      $('#logout').removeClass("hidden")
+      $('#signup').addClass("hidden")
+      $('#signin').addClass("hidden")
+    }else{
+      $('#signup').removeClass("hidden")
+      $('#signin').removeClass("hidden")
+      $('#logout').addClass("hidden")
+    }
+  },
   vote: function(opinion) {
     var self = this;
     var vote = new Object();
@@ -52,12 +76,11 @@ Controller.prototype = {
       console.log(data);
       var user = new User(data);
       self.render(templateSelector, user);
-      $('#greenbutton').on('click', voteOnProfile);
       getLocation()
     })
     .fail(function(data) {
       console.log (data);
-      console.log('something failed');
+      console.log('getRandomUser failed (check if localstorage recognizes a current user');
       var templateSelector = "#no-match-template";
       var noMatch = new Object();
       noMatch['message'] = 'Currently, there are no matches. Please try again later.'
@@ -92,7 +115,7 @@ var onSuccess = function(position) {
 };
 
 function onError(error) {
-  // alert('please turn on your location settings for greenlight' );
+  //alert('please turn on your location settings for greenlight' );
 };
 
 function getLocation(){
