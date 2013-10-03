@@ -25,9 +25,11 @@ ul li {
   background-color: black;
   width: 40%;
   padding: 10px;
-  margin-left: 30%;
-  margin-top: 10%;
   color: white;
+  position: center;
+  min-width: 250px;
+  margin: 0px auto;
+  margin-top: 10%;
 }
 
 .navbar {
