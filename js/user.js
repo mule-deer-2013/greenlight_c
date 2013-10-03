@@ -5,5 +5,6 @@ var User = function(userData) {
   this.photo = userData.photo;
   this.sex = userData.sex;
   this.sexPreference = userData.sexPreference;
+
 };
 
