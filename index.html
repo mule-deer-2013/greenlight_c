@@ -6,7 +6,7 @@
     <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/greenlight.css" />
     <link href='http://fonts.googleapis.com/css?family=Snippet|Poiret+One|Raleway+Dots|Kavoon|Stardos+Stencil' rel='stylesheet' type='text/css'>
-
+    <link href='http://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>
 
     <title>Green Light</title>
     <script id="entry-template" type="text/x-handlebars-template">
@@ -32,9 +32,9 @@
         <div class="signupform">
           <form id="profileform" encrtype="multipart/form-data">
             <h3>Create an Account</h3>
-            Username: <input type="text" name="name"><br>
-            Email:    <input type="email" name="email"><br>
-            Password: <input type="password" name="password"><br>
+            Username:<br><input type="text" name="name"><br>
+            Email:<br><input type="email" name="email"><br>
+            Password:<br><input type="password" name="password"><br>
 
             My Age: <br>
             <select name="age">
@@ -45,13 +45,13 @@
             </select>
             <br>
 
-            Gender: <br><input type="radio" name="sex" value="m">Male<br>
+            Gender:<br><input type="radio" name="sex" value="m">Male<br>
             <input type="radio" name="sex" value="f">Female<br>
-            Interested In:  <br><input type="checkbox" name="sex_preference" value="m">Men<br>
+            Interested In:<br><input type="checkbox" name="sex_preference" value="m">Men<br>
             <input type="checkbox" name="sex_preference" value="f">Women<br>
-            Tagline: <input  type="text"name="tagline"><br>
+            Tagline: <br><input type="text"name="tagline"><br>
 
-            Upload photo: <input type="file" name="photo">
+            Upload photo: <input type="file" name="photo"><br>
             <input type="submit" id="submit">
           </form>
         </div>
@@ -82,7 +82,7 @@
                 </ul>
               </div>
               <button id="green-button">Greenlight</button>
-              <button id="red-button">Pump the breaks</button>
+              <button id="red-button">Pump the brakes</button>
           </div>
         </div>
     </script>
@@ -164,7 +164,10 @@
               </a>
 
               <!-- Be sure to leave the brand out there if you want it shown -->
-              <a class="brand" href="#">GreenLight</a>
+              <a class="brand" href="#">
+                <span class="green">GREEN</span>
+                <span class="light">LIGHT</span>
+              </a>
 
               <!-- Everything you want hidden at 940px or less, place within here -->
               <div class="nav-collapse collapse">
