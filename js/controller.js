@@ -141,7 +141,8 @@ Controller.prototype = {
     .done(function(data) {
       console.log('you have posted a message');
       console.log(data);
-      self.render(templateSelector, data[0].received_messageable_id);
+      console.log(data[0].received_messageable_id)
+      self.render(templateSelector, data[0]);
       _.each(data, function(messageObject) {
           $('<p>' + messageObject.body + ' -' +'</p>').insertAfter('.message-conversation');
       });
