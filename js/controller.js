@@ -14,8 +14,13 @@ Controller.prototype = {
   initialize: function() {
     var self = this;
     self.showAppropriateNavBar()
+    $(document).on('click', '#flag', function() { self.getInboxMessage() })
     $(document).on('click', '#green-button', function() { self.vote("yes") })
     $(document).on('click', '#red-button', function() { self.vote("no") })
+    $(document).on('click', '#green-button', function() { self.receivedMessage(); self.receivedMessage() })
+    $(document).on('click', '#red-button', function() { self.receivedMessage() })
+
+
     $(document).on('submit', '#message-form', function(e) { self.sendMessage(e) })
     $(document).on('submit', '#followup-message-form', function(e) { self.sendFollowUpMessage(e) })
     $(document).on('click', '#nevermind', function(e) { self.getRandomUser() })
@@ -178,13 +183,52 @@ Controller.prototype = {
 
 receivedMessage: function() {
     var self = this;
+    var messageData = new Object();
+    messageData['user_id'] = localStorage['currentUser'];
     $.ajax({
-      url: self.baseUrl + '/users/create_message',
-      type: "POST",
+      url: self.baseUrl + '/users/show_message',
+      type: "GET",
       data: messageData
     })
     .done(function(data) {
-      console.log('you have posted a message');
+      console.log('you have recieved a message');
+      console.log(data);
+      console.log(data[0].received_messageable_id);
+      self.alertNavBar();
+      // self.render(templateSelector, data[0]);
+      // _.each(data, function(messageObject) {
+      //     $('<p>' + messageObject.body + ' -' +'</p>').insertAfter('.message-conversation');
+      });
+    },
+    // );
+  // },
+
+alertNavBar:function () {
+    if(this.auth.isSignedIn()){
+      $('#flag').removeClass("hidden")
+      $('#logout').removeClass("hidden")
+      $('#signup').addClass("hidden")
+      $('#signin').addClass("hidden")
+    }else{
+      $('#signup').removeClass("hidden")
+      $('#signin').removeClass("hidden")
+      $('#logout').addClass("hidden")
+      $('#flag').addClass("hidden")
+    }
+  },
+
+  getInboxMessage: function() {
+    var self = this;
+    var messageData = new Object();
+    var templateSelector = "#conversation-template";
+    messageData['user_id'] = localStorage['currentUser'];
+    $.ajax({
+      url: self.baseUrl + '/users/show_message',
+      type: "GET",
+      data: messageData
+    })
+    .done(function(data) {
+      console.log('you have entered the inbox');
       console.log(data);
       console.log(data[0].received_messageable_id)
       self.render(templateSelector, data[0]);
@@ -193,6 +237,8 @@ receivedMessage: function() {
       });
     });
   },
+
+
 
 
 }
