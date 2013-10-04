@@ -106,7 +106,7 @@ Controller.prototype = {
     var source   = $(templateSelector).html();
     var template = Handlebars.compile(source);
     $('.format_box').remove()
-    $('body').append(template);
+    $('#main').append(template);
 
   },
 
@@ -114,14 +114,14 @@ Controller.prototype = {
     var source   = $(templateSelector).html();
     var template = Handlebars.compile(source);
     $('.format_box').remove();
-    $('body').append(template(data));
+    $('#main').append(template(data));
 
   },
   renderForm: function(templateSelector) {
     var source   = $(templateSelector).html()
     var template = Handlebars.compile(source)
     $('.format_box').remove()
-    $('body').append(template)
+    $('#main').append(template)
   },
 
   sendMessage: function(e) {
@@ -148,34 +148,6 @@ Controller.prototype = {
     });
   }
 }
-
-
- // sendMessage: function(e) {
- //    e.preventDefault();
- //    console.log("in the send message function");
- //    var messageData = new Object();
- //    messageData['receiver_id'] = $('.main-message-form').data('id');
- //    messageData['user_id'] = localStorage['currentUser'];
- //    messageData['content'] = $('#message-form').serializeArray();
- //    var templateSelector = "#conversation-template";
- //    var self = this;
- //    $.ajax({
- //      url: self.baseUrl + '/users/create_message',
- //      type: "POST",
- //      data: messageData
- //    })
- //    .done(function(data) {
- //      console.log('you have posted a message');
- //      console.log(data);
- //      _.each(data, function(messageObject) {
- //        _.each(messageObject.body, function(message){
- //          alert(message)
- //        });
- //      });
- //    });
- //  }
-
-
 
 var onSuccess = function(position) {
   var coords = new Object();

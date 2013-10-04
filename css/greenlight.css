@@ -1,8 +1,27 @@
-body {
-  background-image: url('http://i.imgur.com/ZNZHedY.jpg');
+html, body {
+  background-color: white;
   background-repeat: no-repeat;
   background-size: cover;
+  padding: 0px;
+  height: 100%;
+}
 
+.wrapper {
+  min-height: 100%;
+
+}
+
+#main {
+  overflow:auto;
+  padding-bottom: 40px; /* must be same height as the footer */
+}
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+.brand {
+  font-family: 'Snippet', sans-serif;
 }
 
 ul li {
@@ -22,20 +41,23 @@ ul li {
 .format_box {
   border: 1px solid gray;
   border-radius: 15px;
-  background-color: black;
   width: 40%;
   padding: 10px;
-  color: white;
+  color: black;
   position: center;
   min-width: 250px;
   margin: 0px auto;
   margin-top: 10%;
-  background-color:rgba(0,0,0,0.7);
+  margin-bottom: 10%;
+  font-family: Arial, Helvetica, sans-serif;
   word-wrap: break-word;
 }
 
-.navbar {
-  margin-bottom: 0px;
+.footer {
+  position: relative;
+  margin-top: -40px;  /*negative value of footer height*/
+  height: 40px;
+  clear:both;
+  background-color: black;
 }
-
 
