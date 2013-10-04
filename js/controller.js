@@ -17,6 +17,8 @@ Controller.prototype = {
     $(document).on('click', '#green-button', function() { self.vote("yes") })
     $(document).on('click', '#red-button', function() { self.vote("no") })
     $(document).on('submit', '#message-form', function(e) { self.sendMessage(e) })
+    $(document).on('submit', '#followup-message-form', function(e) { self.sendFollowUpMessage(e) })
+    $(document).on('click', '#nevermind', function(e) { self.getRandomUser() })
     $(document).on('click', "#signup", function() {
       self.renderForm("#signup-template")
       self.showAppropriateNavBar()
@@ -147,7 +149,52 @@ Controller.prototype = {
           $('<p>' + messageObject.body + ' -' +'</p>').insertAfter('.message-conversation');
       });
     });
-  }
+  },
+
+  sendFollowUpMessage: function(e) {
+    e.preventDefault();
+    console.log("in the second message function");
+    var messageData = new Object();
+    messageData['receiver_id'] = $('.message-conversation').data('id');
+    messageData['user_id'] = localStorage['currentUser'];
+    messageData['content'] = $('#followup-message-form').serializeArray();
+    var templateSelector = "#conversation-template";
+    var self = this;
+    $.ajax({
+      url: self.baseUrl + '/users/create_message',
+      type: "POST",
+      data: messageData
+    })
+    .done(function(data) {
+      console.log('you have posted a message');
+      console.log(data);
+      console.log(data[0].received_messageable_id)
+      self.render(templateSelector, data[0]);
+      _.each(data, function(messageObject) {
+          $('<p>' + messageObject.body + ' -' +'</p>').insertAfter('.message-conversation');
+      });
+    });
+  },
+
+receivedMessage: function() {
+    var self = this;
+    $.ajax({
+      url: self.baseUrl + '/users/create_message',
+      type: "POST",
+      data: messageData
+    })
+    .done(function(data) {
+      console.log('you have posted a message');
+      console.log(data);
+      console.log(data[0].received_messageable_id)
+      self.render(templateSelector, data[0]);
+      _.each(data, function(messageObject) {
+          $('<p>' + messageObject.body + ' -' +'</p>').insertAfter('.message-conversation');
+      });
+    });
+  },
+
+
 }
 
 var onSuccess = function(position) {
